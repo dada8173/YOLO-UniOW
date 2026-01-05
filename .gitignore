@@ -126,3 +126,5 @@ pretrained
 # venus
 venus_run.sh
 
+# OWOD dataset images
+data/OWOD/**/*.jpg
