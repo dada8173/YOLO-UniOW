@@ -129,3 +129,4 @@ venus_run.sh
 # OWOD dataset images
 data/OWOD/**/*.jpg
 data/OWOD/**/*.xml
+data/coco/annotations/*.json
