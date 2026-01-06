@@ -103,6 +103,27 @@ def main():
         cfg.resume = True
         cfg.load_from = args.resume
 
+    # Windows single-GPU defaults: use spawn/gloo and disable dataloader workers
+    if os.name == 'nt':
+        try:
+            import torch.multiprocessing as mp  # noqa: WPS433
+            mp.set_start_method('spawn', force=True)
+        except RuntimeError:
+            # start method was already set; safe to ignore
+            pass
+
+        # Default to gloo if user requested distributed launcher on Windows
+        if cfg.get('dist_cfg', None) is None:
+            cfg.dist_cfg = dict(backend='gloo')
+        elif 'backend' not in cfg.dist_cfg:
+            cfg.dist_cfg['backend'] = 'gloo'
+
+        # For stability on Windows, keep dataloader single-process by default
+        for loader_key in ['train_dataloader', 'val_dataloader', 'test_dataloader']:
+            if loader_key in cfg:
+                cfg[loader_key]['num_workers'] = 0
+                cfg[loader_key]['persistent_workers'] = False
+
     # Determine whether the custom metainfo fields are all lowercase
     is_metainfo_lower(cfg)
 
