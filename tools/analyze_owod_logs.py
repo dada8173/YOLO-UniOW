@@ -3,10 +3,10 @@
 """
 OWOD Log Analysis Tool
 功能：
-1. 读取所有OWOD训练log
-2. 提取每个epoch的验证指标
-3. 生成可视化图表
-4. 按log日期和任务组织输出文件
+1. 讀取所有OWOD訓練log
+2. 提取每個epoch的驗證指標
+3. 生成可視化圖表
+4. 按log日期和任務組織輸出檔案
 """
 
 import re
@@ -18,9 +18,13 @@ import matplotlib.pyplot as plt
 import matplotlib
 from typing import Dict, List, Tuple
 
-# 设置中文字体
-matplotlib.rcParams['font.sans-serif'] = ['SimHei', 'DejaVu Sans']
+# 設定中文字體 - Windows系統
+matplotlib.rcParams['font.sans-serif'] = ['Microsoft YaHei', 'SimHei', 'SimSun', 'DejaVu Sans']
+matplotlib.rcParams['font.serif'] = ['SimSun']
 matplotlib.rcParams['axes.unicode_minus'] = False
+# 禁用警告
+import warnings
+warnings.filterwarnings('ignore', category=UserWarning)
 
 class OWODLogAnalyzer:
     def __init__(self, work_dir: str = 'work_dirs/yolo_uniow_s_lora_bn_1e-3_20e_8gpus_owod'):
@@ -28,7 +32,7 @@ class OWODLogAnalyzer:
         self.results = {}
         
     def find_log_files(self) -> Dict[str, Path]:
-        """查找所有log文件"""
+        """查找所有log檔案"""
         log_files = {}
         for date_dir in self.work_dir.glob('2026*/'):
             log_path = list(date_dir.glob('*.log'))
@@ -37,7 +41,7 @@ class OWODLogAnalyzer:
         return log_files
     
     def extract_task_from_log(self, log_path: Path) -> int:
-        """从log文件推断Task编号"""
+        """從log檔案推斷Task編號"""
         with open(log_path, 'r', encoding='utf-8') as f:
             content = f.read()
             # 查找OWOD from形式的字符串
@@ -49,11 +53,11 @@ class OWODLogAnalyzer:
                     task_match = re.search(r't(\d+)', task_str)
                     if task_match:
                         return int(task_match.group(1))
-        # 默认为Task 1
+        # 預設為Task 1
         return 1
     
     def parse_validation_metrics(self, log_path: Path) -> Dict[int, Dict]:
-        """解析log中的验证指标"""
+        """解析log中的驗證指標"""
         metrics_by_epoch = {}
         
         with open(log_path, 'r', encoding='utf-8') as f:
@@ -94,7 +98,7 @@ class OWODLogAnalyzer:
                 if match:
                     metrics[key] = float(match.group(1))
             
-            # 计算综合指标 (Both = Known AP50，因为通常这是主要关注点)
+            # 計算綜合指標 (Both = Known AP50，因為通常這是主要關注點)
             if 'known_ap50' in metrics:
                 metrics['both'] = metrics['known_ap50']
             
@@ -104,7 +108,7 @@ class OWODLogAnalyzer:
         return metrics_by_epoch
     
     def analyze_all_logs(self):
-        """分析所有log文件"""
+        """分析所有log檔案"""
         log_files = self.find_log_files()
         
         for date_dir, log_path in sorted(log_files.items()):
@@ -121,7 +125,7 @@ class OWODLogAnalyzer:
                     'log_date': date_dir[:8],  # YYYYMMDD
                     'log_time': date_dir[8:],  # HHMMSS
                 }
-                print(f"  ✓ Task {task}: 找到 {len(metrics)} 个验证点")
+                print(f"  ✓ Task {task}: 找到 {len(metrics)} 個驗證點")
         
         return self.results
     
@@ -131,10 +135,10 @@ class OWODLogAnalyzer:
         task = result['task']
         
         if not metrics:
-            print(f"  ⚠ {log_dir_name}: 无验证指标")
+            print(f"  ⚠ {log_dir_name}: 無驗證指標")
             return
         
-        # 创建输出目录
+        # 建立輸出目錄
         output_dir = self.work_dir / f'analysis_{log_dir_name}' / f'task_{task}'
         output_dir.mkdir(parents=True, exist_ok=True)
         
@@ -152,37 +156,37 @@ class OWODLogAnalyzer:
         
         wilderness_impact = [metrics[e].get('wilderness_impact', np.nan) for e in epochs]
         
-        # 绘制1：已知/未知类对比
+        # 繪製1：已知/未知類對比
         fig, axes = plt.subplots(2, 2, figsize=(14, 10))
-        fig.suptitle(f'Task {task} - OWOD 验证指标\n{log_dir_name}', fontsize=14, fontweight='bold')
+        fig.suptitle(f'Task {task} - OWOD 驗證指標\n{log_dir_name}', fontsize=14, fontweight='bold')
         
-        # AP50对比
+        # AP50對比
         ax = axes[0, 0]
         ax.plot(epochs, known_ap50, 'o-', label='Known AP50', linewidth=2, markersize=6)
         ax.plot(epochs, unknown_ap50, 's-', label='Unknown AP50', linewidth=2, markersize=6)
         ax.set_xlabel('Epoch', fontsize=11)
         ax.set_ylabel('AP50 (%)', fontsize=11)
-        ax.set_title('AP50 Comparison', fontsize=12, fontweight='bold')
+        ax.set_title('AP50 對比', fontsize=12, fontweight='bold')
         ax.legend(fontsize=10)
         ax.grid(True, alpha=0.3)
         
-        # Recall对比
+        # Recall對比
         ax = axes[0, 1]
         ax.plot(epochs, known_recall, 'o-', label='Known Recall', linewidth=2, markersize=6)
         ax.plot(epochs, unknown_recall, 's-', label='Unknown Recall', linewidth=2, markersize=6)
         ax.set_xlabel('Epoch', fontsize=11)
         ax.set_ylabel('Recall (%)', fontsize=11)
-        ax.set_title('Recall Comparison', fontsize=12, fontweight='bold')
+        ax.set_title('Recall 對比', fontsize=12, fontweight='bold')
         ax.legend(fontsize=10)
         ax.grid(True, alpha=0.3)
         
-        # Precision对比
+        # Precision對比
         ax = axes[1, 0]
         ax.plot(epochs, known_precision, 'o-', label='Known Precision', linewidth=2, markersize=6)
         ax.plot(epochs, unknown_precision, 's-', label='Unknown Precision', linewidth=2, markersize=6)
         ax.set_xlabel('Epoch', fontsize=11)
         ax.set_ylabel('Precision (%)', fontsize=11)
-        ax.set_title('Precision Comparison', fontsize=12, fontweight='bold')
+        ax.set_title('Precision 對比', fontsize=12, fontweight='bold')
         ax.legend(fontsize=10)
         ax.grid(True, alpha=0.3)
         
@@ -191,24 +195,24 @@ class OWODLogAnalyzer:
         ax.plot(epochs, wilderness_impact, 'D-', label='Wilderness Impact', linewidth=2, markersize=6, color='red')
         ax.set_xlabel('Epoch', fontsize=11)
         ax.set_ylabel('WI (越低越好)', fontsize=11)
-        ax.set_title('Wilderness Impact Trend', fontsize=12, fontweight='bold')
+        ax.set_title('Wilderness Impact 趨勢', fontsize=12, fontweight='bold')
         ax.legend(fontsize=10)
         ax.grid(True, alpha=0.3)
         
         plt.tight_layout()
         
-        # 保存图表
+        # 保存圖表
         plot_file = output_dir / f'owod_metrics_{log_dir_name}.png'
         plt.savefig(plot_file, dpi=300, bbox_inches='tight')
-        print(f"  ✓ 图表已保存: {plot_file.relative_to(self.work_dir)}")
+        print(f"  ✓ 圖表已保存: {plot_file.relative_to(self.work_dir)}")
         plt.close()
         
-        # 生成详细JSON报告
+        # 生成詳細JSON報告
         self._save_json_report(output_dir, log_dir_name, task, epochs, metrics)
     
     def _save_json_report(self, output_dir: Path, log_dir_name: str, task: int, 
                          epochs: List[int], metrics: Dict):
-        """保存JSON格式的详细报告"""
+        """保存JSON格式的詳細報告"""
         report = {
             'log_info': {
                 'log_directory': log_dir_name,
@@ -236,12 +240,12 @@ class OWODLogAnalyzer:
         with open(json_file, 'w', encoding='utf-8') as f:
             json.dump(report, f, indent=2, ensure_ascii=False)
         
-        print(f"  ✓ 报告已保存: {json_file.relative_to(self.work_dir)}")
+        print(f"  ✓ 報告已保存: {json_file.relative_to(self.work_dir)}")
     
     def generate_summary_report(self):
-        """生成所有Task的汇总报告"""
+        """生成所有Task的匯總報告"""
         if not self.results:
-            print("没有找到任何log文件！")
+            print("沒有找到任何log檔案！")
             return
         
         summary_file = self.work_dir / 'OWOD_Summary_Report.txt'
@@ -252,7 +256,7 @@ class OWODLogAnalyzer:
             f.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
             f.write("="*80 + "\n\n")
             
-            # 按Task分组
+            # 按Task分組
             tasks_data = {}
             for log_dir, result in sorted(self.results.items()):
                 task = result['task']
@@ -260,7 +264,7 @@ class OWODLogAnalyzer:
                     tasks_data[task] = []
                 tasks_data[task].append((log_dir, result))
             
-            # 写入每个Task的信息
+            # 寫入每個Task的信息
             for task in sorted(tasks_data.keys()):
                 f.write(f"\nTASK {task}\n")
                 f.write("-" * 80 + "\n")
@@ -288,31 +292,31 @@ class OWODLogAnalyzer:
                         
                         f.write(f"\nCheckpoint: epoch_{best_epoch}.pth\n")
         
-        print(f"\n✓ 汇总报告已保存: {summary_file.relative_to(self.work_dir)}")
+        print(f"\n✓ 汇总報告已保存: {summary_file.relative_to(self.work_dir)}")
     
     def run(self):
-        """执行完整的分析流程"""
+        """執行完整的分析流程"""
         print("\n" + "="*80)
         print("OWOD Log Analysis Tool")
         print("="*80 + "\n")
         
         # 1. 分析所有log
-        print("步骤 1/3: 分析所有log文件...")
+        print("步骤 1/3: 分析所有log檔案...")
         self.analyze_all_logs()
         
         if not self.results:
-            print("❌ 未找到任何log文件！")
+            print("❌ 未找到任何log檔案！")
             return
         
-        print(f"✓ 找到 {len(self.results)} 个log文件\n")
+        print(f"✓ 找到 {len(self.results)} 個log檔案\n")
         
         # 2. 生成可视化
-        print("步骤 2/3: 生成可视化图表...")
+        print("步驟 2/3: 生成可視化圖表...")
         for log_dir, result in sorted(self.results.items()):
             self.plot_metrics(log_dir, result)
         
         # 3. 生成汇总报告
-        print("\n步骤 3/3: 生成汇总报告...")
+        print("\n步驟 3/3: 生成匯總報告...")
         self.generate_summary_report()
         
         print("\n" + "="*80)
