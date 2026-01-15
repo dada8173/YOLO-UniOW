@@ -7,7 +7,7 @@ custom_imports = dict(imports=['yolo_world'],
 # hyper-parameters
 num_classes = _base_.PREV_INTRODUCED_CLS + _base_.CUR_INTRODUCED_CLS + 2
 num_training_classes = _base_.PREV_INTRODUCED_CLS + _base_.CUR_INTRODUCED_CLS + 2
-max_epochs = 50  # Maximum training epochs (增加到 50)
+max_epochs = 100  # Maximum training epochs
 close_mosaic_epochs = max_epochs # Close mosaic from the start
 save_epoch_intervals = 5
 val_interval = 5
@@ -19,10 +19,7 @@ base_lr = 1e-3
 weight_decay = 0.025
 train_batch_size_per_gpu = 16
 
-# 使用環境變量指定權重，若未設置則使用預訓練權重
-import os
-_load_from = os.getenv('LOAD_FROM', None)
-load_from = _load_from if _load_from else 'pretrained/yolo_uniow_s_lora_bn_5e-4_100e_8gpus_obj365v1_goldg_train_lvis_minival.pth'
+load_from = 'work_dirs/yolo_uniow_s_lora_bn_1e-3_20e_8gpus_owod/best_owod_Both_epoch_20.pth'
 
 # trainable (1), frozen (0)
 embedding_mask = ([0] * _base_.PREV_INTRODUCED_CLS +    # previous classes
