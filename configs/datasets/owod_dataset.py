@@ -14,6 +14,11 @@ owod_settings = {
     "nuOWODB": {
         "task_list": [0, 10, 17, 23],
         "test_image_set": "test",
+    },
+    # 4 tasks
+    "GroceryOWOD": {
+        "task_list": [0, 3, 6, 9, 11],
+        "test_image_set": "test",
     }
 }
 
