@@ -9,6 +9,10 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from PIL import Image
 
+# 設定中文字體
+plt.rcParams['font.sans-serif'] = ['Microsoft JhengHei', 'Microsoft YaHei', 'SimHei', 'Arial Unicode MS']
+plt.rcParams['axes.unicode_minus'] = False  # 解決負號顯示問題
+
 def visualize_annotations(coco_file, image_dir, num_samples=5, output_dir="visualizations"):
     """
     視覺化 COCO 格式的標註
@@ -134,7 +138,7 @@ def print_statistics(coco_file):
 
 if __name__ == "__main__":
     coco_file = "annotations_coco.json"
-    image_dir = "GroceryDataset_part1/ShelfImages"
+    image_dir = "ShelfImages"
     
     # 印出統計資訊
     print_statistics(coco_file)
