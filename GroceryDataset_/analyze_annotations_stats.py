@@ -1,5 +1,5 @@
 """
-GroceryDataset 標註統計分析與視覺化
+GroceryDataset 標註統計分析與視覺化 (修正中文顯示版)
 生成詳細的統計圖表和報告
 """
 import json
@@ -7,33 +7,67 @@ import os
 from pathlib import Path
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-from PIL import Image
+# from PIL import Image # 如果沒有用到 PIL 可以註解掉，或者保留
 import numpy as np
 from collections import defaultdict, Counter
 import seaborn as sns
 import matplotlib.font_manager as fm
 import warnings
 
-# 設定中文字體和風格 - 改進版（抑制字體警告）
+# ==========================================
+# 1. 設定繪圖風格 (必須最先執行)
+# ==========================================
+try:
+    plt.style.use('seaborn-v0_8-darkgrid')
+except:
+    plt.style.use('seaborn-darkgrid') # 相容舊版 matplotlib
+
+sns.set_palette("husl")
+
+# ==========================================
+# 2. 設定中文字體 (必須在 style.use 之後執行)
+# ==========================================
 def setup_chinese_font():
-    """設定中文字體，並抑制缺失字符警告"""
-    # 抑制matplotlib字體警告
+    """
+    設定中文字體，優先使用 Windows 微軟正黑體
+    """
+    # 抑制 matplotlib 的字體警告
     warnings.filterwarnings('ignore', category=UserWarning, module='matplotlib')
     
-    # 使用Microsoft YaHei (通常較完整)
-    plt.rcParams['font.sans-serif'] = ['Microsoft YaHei', 'SimHei', 'Arial Unicode MS']
+    # 常見中文字體列表 (優先順序：微軟正黑體 -> 微軟雅黑 -> 黑體 -> 其他)
+    font_candidates = ['Microsoft JhengHei', 'Microsoft YaHei', 'SimHei', 'Heiti TC', 'Arial Unicode MS']
+    
+    # 偵測系統中可用的字體
+    system_fonts = set([f.name for f in fm.fontManager.ttflist])
+    
+    found_font = False
+    for font_name in font_candidates:
+        if font_name in system_fonts:
+            plt.rcParams['font.sans-serif'] = [font_name] + plt.rcParams['font.sans-serif']
+            plt.rcParams['font.family'] = 'sans-serif'
+            print(f"✓ 成功設定中文字體: {font_name}")
+            found_font = True
+            break
+    
+    if not found_font:
+        print("! 警告: 未找到常見中文字體，圖表中文可能會顯示為方塊")
+        # 還是嘗試設定通用名稱，碰碰運氣
+        plt.rcParams['font.sans-serif'] = ['sans-serif']
+    
+    # 解決負號 '-' 顯示為方塊的問題
     plt.rcParams['axes.unicode_minus'] = False
     
     # 設定字體大小
     plt.rcParams['font.size'] = 10
-    plt.rcParams['axes.titlesize'] = 12
-    plt.rcParams['axes.labelsize'] = 11
-    
-    print("✓ 字體設定完成 (已抑制字體警告)")
+    plt.rcParams['axes.titlesize'] = 14
+    plt.rcParams['axes.labelsize'] = 12
 
+# 立即執行字體設定
 setup_chinese_font()
-plt.style.use('seaborn-v0_8-darkgrid')
-sns.set_palette("husl")
+
+# ==========================================
+# 3. 資料處理與繪圖邏輯
+# ==========================================
 
 def load_coco_data(coco_file):
     """載入 COCO 格式的標註檔案"""
@@ -206,7 +240,8 @@ def plot_objects_per_image(stats, output_dir):
     # Box plot
     ax2.boxplot(objects_counts, vert=True, patch_artist=True,
                 boxprops=dict(facecolor='lightblue', alpha=0.7),
-                medianprops=dict(color='red', linewidth=2))
+                medianprops=dict(color='red', linewidth=2),
+                tick_labels=['所有圖片']) # 修正 matplotlib 3.9+ 警告
     ax2.set_ylabel('每張圖片的物體數量', fontsize=12)
     ax2.set_title('物體數量統計 (箱型圖)', fontsize=14, fontweight='bold')
     ax2.grid(alpha=0.3)
@@ -230,8 +265,9 @@ def plot_category_area_comparison(stats, output_dir):
         area_data.append(stats['category_areas'][cat_id])
     
     # 創建箱型圖
-    bp = ax.boxplot(area_data, labels=categories, patch_artist=True, 
-                    showmeans=True, meanline=True)
+    bp = ax.boxplot(area_data, patch_artist=True, 
+                    showmeans=True, meanline=True,
+                    tick_labels=categories) # 修正參數名稱
     
     # 美化箱型圖
     colors = plt.cm.Set3(np.linspace(0, 1, len(categories)))
@@ -310,7 +346,8 @@ def generate_summary_report(stats, output_dir):
     report_lines.append(f"總圖片數量: {stats['total_images']}")
     report_lines.append(f"總標註數量: {stats['total_annotations']}")
     report_lines.append(f"類別總數: {stats['total_categories']}")
-    report_lines.append(f"平均每張圖片的標註數: {stats['total_annotations'] / stats['total_images']:.2f}")
+    if stats['total_images'] > 0:
+        report_lines.append(f"平均每張圖片的標註數: {stats['total_annotations'] / stats['total_images']:.2f}")
     report_lines.append("")
     
     # 類別統計
@@ -319,34 +356,36 @@ def generate_summary_report(stats, output_dir):
     for cat_id in sorted(stats['category_counts'].keys()):
         cat_name = stats['category_names'][cat_id]
         count = stats['category_counts'][cat_id]
-        percentage = (count / stats['total_annotations']) * 100
+        percentage = (count / stats['total_annotations']) * 100 if stats['total_annotations'] > 0 else 0
         report_lines.append(f"  {cat_name:30} (ID:{cat_id:3}): {count:5} ({percentage:5.2f}%)")
     report_lines.append("")
     
     # 邊界框統計
-    report_lines.append("📦 邊界框統計")
-    report_lines.append("-" * 80)
-    report_lines.append(f"面積 - 平均: {np.mean(stats['bbox_areas']):,.0f} 像素²")
-    report_lines.append(f"面積 - 中位數: {np.median(stats['bbox_areas']):,.0f} 像素²")
-    report_lines.append(f"面積 - 最小: {np.min(stats['bbox_areas']):,.0f} 像素²")
-    report_lines.append(f"面積 - 最大: {np.max(stats['bbox_areas']):,.0f} 像素²")
-    report_lines.append(f"面積 - 標準差: {np.std(stats['bbox_areas']):,.0f} 像素²")
-    report_lines.append("")
-    report_lines.append(f"寬度 - 平均: {np.mean(stats['bbox_widths']):.1f} 像素")
-    report_lines.append(f"高度 - 平均: {np.mean(stats['bbox_heights']):.1f} 像素")
-    report_lines.append(f"長寬比 - 平均: {np.mean(stats['bbox_aspect_ratios']):.2f}")
-    report_lines.append("")
+    if stats['bbox_areas']:
+        report_lines.append("📦 邊界框統計")
+        report_lines.append("-" * 80)
+        report_lines.append(f"面積 - 平均: {np.mean(stats['bbox_areas']):,.0f} 像素²")
+        report_lines.append(f"面積 - 中位數: {np.median(stats['bbox_areas']):,.0f} 像素²")
+        report_lines.append(f"面積 - 最小: {np.min(stats['bbox_areas']):,.0f} 像素²")
+        report_lines.append(f"面積 - 最大: {np.max(stats['bbox_areas']):,.0f} 像素²")
+        report_lines.append(f"面積 - 標準差: {np.std(stats['bbox_areas']):,.0f} 像素²")
+        report_lines.append("")
+        report_lines.append(f"寬度 - 平均: {np.mean(stats['bbox_widths']):.1f} 像素")
+        report_lines.append(f"高度 - 平均: {np.mean(stats['bbox_heights']):.1f} 像素")
+        report_lines.append(f"長寬比 - 平均: {np.mean(stats['bbox_aspect_ratios']):.2f}")
+        report_lines.append("")
     
     # 每張圖片的物體數量統計
     objects_counts = list(stats['objects_per_image'].values())
-    report_lines.append("🖼️  每張圖片的物體數量統計")
-    report_lines.append("-" * 80)
-    report_lines.append(f"平均: {np.mean(objects_counts):.2f}")
-    report_lines.append(f"中位數: {np.median(objects_counts):.0f}")
-    report_lines.append(f"最小: {np.min(objects_counts)}")
-    report_lines.append(f"最大: {np.max(objects_counts)}")
-    report_lines.append(f"標準差: {np.std(objects_counts):.2f}")
-    report_lines.append("")
+    if objects_counts:
+        report_lines.append("🖼️  每張圖片的物體數量統計")
+        report_lines.append("-" * 80)
+        report_lines.append(f"平均: {np.mean(objects_counts):.2f}")
+        report_lines.append(f"中位數: {np.median(objects_counts):.0f}")
+        report_lines.append(f"最小: {np.min(objects_counts)}")
+        report_lines.append(f"最大: {np.max(objects_counts)}")
+        report_lines.append(f"標準差: {np.std(objects_counts):.2f}")
+        report_lines.append("")
     
     # 圖片尺寸統計
     report_lines.append("📐 圖片尺寸統計")
@@ -355,7 +394,7 @@ def generate_summary_report(stats, output_dir):
     report_lines.append(f"不同尺寸數量: {len(unique_sizes)}")
     for size in unique_sizes:
         count = stats['image_sizes'].count(size)
-        percentage = (count / stats['total_images']) * 100
+        percentage = (count / stats['total_images']) * 100 if stats['total_images'] > 0 else 0
         report_lines.append(f"  {size[0]:5}×{size[1]:5}: {count:4}張 ({percentage:5.2f}%)")
     
     report_lines.append("")
@@ -378,6 +417,10 @@ def create_comprehensive_visualization(coco_file, output_dir='statistics_visuali
     os.makedirs(output_dir, exist_ok=True)
     
     print(f"正在載入標註檔案: {coco_file}")
+    if not os.path.exists(coco_file):
+        print(f"錯誤: 找不到檔案 {coco_file}")
+        return
+
     coco_data = load_coco_data(coco_file)
     
     print("正在計算統計資訊...")
@@ -402,11 +445,11 @@ def create_comprehensive_visualization(coco_file, output_dir='statistics_visuali
     print(f"✅ 所有統計視覺化已完成！")
     print(f"📁 輸出目錄: {os.path.abspath(output_dir)}")
     print("=" * 80)
-
 if __name__ == "__main__":
-    # 設定檔案路徑
-    coco_file = "annotations_coco.json"
-    output_dir = "statistics_visualizations"
+    # 設定檔案路徑 (修正為相對於腳本位置的路徑)
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    coco_file = os.path.join(script_dir, "annotations_coco.json")
+    output_dir = os.path.join(script_dir, "statistics_visualizations")
     
     # 生成完整的統計視覺化
     create_comprehensive_visualization(coco_file, output_dir)
