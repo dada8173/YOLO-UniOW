@@ -109,3 +109,15 @@ T3_CLASS_NAMES = [
 ]
 
 VOC_COCO_CLASS_NAMES["nuOWODB"] = tuple(itertools.chain(T1_CLASS_NAMES, T2_CLASS_NAMES, T3_CLASS_NAMES, UNK_CLASS))
+
+# GroceryOWOD
+GROCERY_T1_CLASS_NAMES = ['category_3', 'category_10', 'category_9']
+GROCERY_T2_CLASS_NAMES = ['category_5', 'category_6', 'category_8']
+GROCERY_T3_CLASS_NAMES = ['category_1', 'category_7', 'category_4']
+GROCERY_T4_CLASS_NAMES = ['category_2', 'category_0']
+VOC_COCO_CLASS_NAMES["GroceryOWOD"] = tuple(itertools.chain(
+    GROCERY_T1_CLASS_NAMES, 
+    GROCERY_T2_CLASS_NAMES, 
+    GROCERY_T3_CLASS_NAMES, 
+    GROCERY_T4_CLASS_NAMES, 
+    UNK_CLASS))
