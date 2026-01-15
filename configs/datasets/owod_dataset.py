@@ -17,7 +17,7 @@ owod_settings = {
     },
     # 4 tasks
     "GroceryOWOD": {
-        "task_list": [0, 3, 6, 9, 11],
+        "task_list": [0, 3, 6, 9, 10],
         "test_image_set": "test",
     },
     # 4 tasks

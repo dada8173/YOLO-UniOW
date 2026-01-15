@@ -8,4 +8,3 @@ category_1
 category_7
 category_4
 category_2
-category_0
