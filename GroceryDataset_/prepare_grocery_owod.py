@@ -43,7 +43,7 @@ def split_owod_tasks(categories, annotations, task_split=[3, 3, 3, 2]):
     將類別分配到 OWOD 任務中
     
     Args:
-        categories: 類別列表
+        categories: COCO 格式的類別列表 (如 [{'id': 0, 'name': 'category_0'}, ...])
         annotations: 標註列表
         task_split: 每個任務新增的類別數 [T1, T2, T3, T4]
     
@@ -51,18 +51,19 @@ def split_owod_tasks(categories, annotations, task_split=[3, 3, 3, 2]):
         task_categories: {task_id: [category_names]}
         task_images: {task_id: [image_ids]} - 包含該任務類別的圖片
     """
+    # 建立類別 id → name 映射
+    id_to_name = {cat['id']: cat['name'] for cat in categories}
+    
     # 統計每個類別的樣本數
     category_counts = {}
     category_images = {}
     
-    for cat in categories:
-        cat_id = cat['id']
-        cat_name = cat['name']
+    for cat_name in id_to_name.values():
         category_counts[cat_name] = 0
         category_images[cat_name] = set()
     
     for ann in annotations:
-        cat_name = categories[ann['category_id']]
+        cat_name = id_to_name[ann['category_id']]
         category_counts[cat_name] += 1
         category_images[cat_name].add(ann['image_id'])
     
@@ -105,10 +106,20 @@ def split_owod_tasks(categories, annotations, task_split=[3, 3, 3, 2]):
     return task_categories, task_images, task_list
 
 
-def convert_to_owod(coco_file, image_source_dir, output_root, 
+def convert_to_owod(coco_file, image_dir, output_root, 
+                    dataset_name='GroceryOWOD',
                     task_split=[3, 3, 3, 2], train_ratio=0.7, seed=42):
     """
     完整轉換流程
+    
+    Args:
+        coco_file: COCO 標註文件路徑
+        image_dir: 圖片源目錄
+        output_root: OWOD 數據集根目錄 (如 data/OWOD)
+        dataset_name: 數據集名稱 (如 GroceryOWOD)
+        task_split: 每個任務的類別數
+        train_ratio: 訓練集比例
+        seed: 隨機種子
     """
     random.seed(seed)
     np.random.seed(seed)
@@ -124,10 +135,13 @@ def convert_to_owod(coco_file, image_source_dir, output_root,
     
     output_root = Path(output_root)
     
-    # 創建目錄
-    (output_root / 'JPEGImages').mkdir(parents=True, exist_ok=True)
-    (output_root / 'Annotations').mkdir(parents=True, exist_ok=True)
-    (output_root / 'ImageSets').mkdir(parents=True, exist_ok=True)
+    # 創建 OWOD 標準目錄結構
+    # data/OWOD/JPEGImages/GroceryOWOD/
+    # data/OWOD/Annotations/GroceryOWOD/
+    # data/OWOD/ImageSets/GroceryOWOD/
+    (output_root / 'JPEGImages' / dataset_name).mkdir(parents=True, exist_ok=True)
+    (output_root / 'Annotations' / dataset_name).mkdir(parents=True, exist_ok=True)
+    (output_root / 'ImageSets' / dataset_name).mkdir(parents=True, exist_ok=True)
     
     # 類別映射
     categories = {cat['id']: cat['name'] for cat in coco_data['categories']}
@@ -144,7 +158,7 @@ def convert_to_owod(coco_file, image_source_dir, output_root,
     # OWOD 任務分割
     print(f"\n🎓 創建 OWOD 任務分割...")
     task_categories, task_images, task_list = split_owod_tasks(
-        categories, coco_data['annotations'], task_split
+        coco_data['categories'], coco_data['annotations'], task_split
     )
     
     # 轉換並複製數據
@@ -163,15 +177,15 @@ def convert_to_owod(coco_file, image_source_dir, output_root,
         if not annotations:
             continue
         
-        # 創建 XML
+        # 創建 XML (注意：OWOD 使用 .jpg 擴展名，不是 .JPG)
         xml_tree = create_voc_xml(img_info, annotations, categories)
-        xml_path = output_root / 'Annotations' / f'{image_name_no_ext}.xml'
+        xml_path = output_root / 'Annotations' / dataset_name / f'{image_name_no_ext}.xml'
         xml_tree.write(str(xml_path))
         
-        # 複製圖片
+        # 複製圖片 (改為 .jpg 擴展名以符合 OWOD 標準)
         possible_paths = [
-            Path(image_source_dir) / file_name,
-            Path(image_source_dir) / Path(file_name).name,
+            Path(image_dir) / file_name,
+            Path(image_dir) / Path(file_name).name,
         ]
         
         src_image = None
@@ -181,7 +195,7 @@ def convert_to_owod(coco_file, image_source_dir, output_root,
                 break
         
         if src_image:
-            dst_image = output_root / 'JPEGImages' / Path(file_name).name
+            dst_image = output_root / 'JPEGImages' / dataset_name / f'{image_name_no_ext}.jpg'
             if not dst_image.exists():
                 shutil.copy2(src_image, dst_image)
             success_count += 1
@@ -205,7 +219,7 @@ def convert_to_owod(coco_file, image_source_dir, output_root,
     print(f"  測試集: {len(test_image_ids)} 張")
     
     # 寫入測試集文件
-    test_file = output_root / 'ImageSets' / 'test.txt'
+    test_file = output_root / 'ImageSets' / dataset_name / 'test.txt'
     with open(test_file, 'w') as f:
         for img_name, img_id in all_image_ids[n_train:]:
             f.write(f'{img_name}\n')
@@ -219,7 +233,7 @@ def convert_to_owod(coco_file, image_source_dir, output_root,
             known_categories.extend(task_categories[tid])
         
         # t{X}_known.txt - 已知類別列表
-        known_file = output_root / 'ImageSets' / f't{task_id}_known.txt'
+        known_file = output_root / 'ImageSets' / dataset_name / f't{task_id}_known.txt'
         with open(known_file, 'w') as f:
             for cat_name in known_categories:
                 f.write(f'{cat_name}\n')
@@ -244,7 +258,7 @@ def convert_to_owod(coco_file, image_source_dir, output_root,
             if img_categories & current_task_cats:
                 task_train_images.append(img_name)
         
-        train_file = output_root / 'ImageSets' / f't{task_id}_train.txt'
+        train_file = output_root / 'ImageSets' / dataset_name / f't{task_id}_train.txt'
         with open(train_file, 'w') as f:
             for img_name in task_train_images:
                 f.write(f'{img_name}\n')
@@ -302,13 +316,13 @@ grocery_owod_settings = {{
 """
     
     readme += f"""
-## 文件結構
+## 文件結構 (OWOD 標準格式)
 
 ```
-GroceryOWOD/
-├── JPEGImages/       ({success_count} 張圖片)
-├── Annotations/      ({success_count} 個 XML)
-└── ImageSets/
+data/OWOD/
+├── JPEGImages/{dataset_name}/       ({success_count} 張 .jpg 圖片)
+├── Annotations/{dataset_name}/      ({success_count} 個 .xml 文件)
+└── ImageSets/{dataset_name}/
     ├── t1_train.txt
     ├── t1_known.txt
     ├── t2_train.txt
@@ -346,21 +360,22 @@ python tools/train_owod.py configs/grocery_owod_ft/yolo_uniow_s_grocery_owod.py 
 ```
 """
     
-    readme_file = output_root / 'README.md'
+    readme_file = output_root / 'ImageSets' / dataset_name / 'README.md'
     with open(readme_file, 'w', encoding='utf-8') as f:
         f.write(readme)
     print(f"  ✅ {readme_file}")
     
     print(f"\n✅ 轉換完成！")
     print(f"📂 輸出目錄: {output_root}")
+    print(f"📁 數據集名稱: {dataset_name}")
     
     # 驗證
-    verify_owod_data(output_root)
+    verify_owod_data(output_root, dataset_name)
     
-    return output_root, task_list
+    return output_root, dataset_name, task_list
 
 
-def verify_owod_data(output_root):
+def verify_owod_data(output_root, dataset_name='GroceryOWOD'):
     """驗證 OWOD 數據完整性"""
     print(f"\n🔍 驗證數據完整性...")
     
@@ -369,14 +384,18 @@ def verify_owod_data(output_root):
     
     # 檢查目錄
     for dir_name in ['JPEGImages', 'Annotations', 'ImageSets']:
-        if not (output_root / dir_name).exists():
-            issues.append(f"❌ 缺少目錄: {dir_name}")
+        dataset_dir = output_root / dir_name / dataset_name
+        if not dataset_dir.exists():
+            issues.append(f"❌ 缺少目錄: {dir_name}/{dataset_name}")
         else:
-            print(f"  ✅ {dir_name}/")
+            print(f"  ✅ {dir_name}/{dataset_name}/")
     
     # 檢查文件數量
-    n_images = len(list((output_root / 'JPEGImages').glob('*.JPG')))
-    n_xmls = len(list((output_root / 'Annotations').glob('*.xml')))
+    image_dir = output_root / 'JPEGImages' / dataset_name
+    ann_dir = output_root / 'Annotations' / dataset_name
+    
+    n_images = len(list(image_dir.glob('*.jpg'))) if image_dir.exists() else 0
+    n_xmls = len(list(ann_dir.glob('*.xml'))) if ann_dir.exists() else 0
     
     if n_images != n_xmls:
         issues.append(f"⚠️  圖片數量 ({n_images}) 與標註數量 ({n_xmls}) 不符")
@@ -384,19 +403,20 @@ def verify_owod_data(output_root):
         print(f"  ✅ 圖片與標註數量一致: {n_images}")
     
     # 檢查 ImageSets
+    imageset_dir = output_root / 'ImageSets' / dataset_name
     required_files = []
     for task in [1, 2, 3, 4]:
         required_files.extend([f't{task}_train.txt', f't{task}_known.txt'])
     required_files.append('test.txt')
     
     for file_name in required_files:
-        file_path = output_root / 'ImageSets' / file_name
+        file_path = imageset_dir / file_name
         if file_path.exists():
             with open(file_path, 'r') as f:
                 n_lines = len(f.readlines())
-            print(f"  ✅ ImageSets/{file_name}: {n_lines} 行")
+            print(f"  ✅ ImageSets/{dataset_name}/{file_name}: {n_lines} 行")
         else:
-            issues.append(f"❌ 缺少文件: ImageSets/{file_name}")
+            issues.append(f"❌ 缺少文件: ImageSets/{dataset_name}/{file_name}")
     
     if issues:
         print("\n⚠️  發現問題:")
@@ -416,8 +436,10 @@ if __name__ == '__main__':
                        help='COCO 標註文件')
     parser.add_argument('--image-dir', type=str, default='GroceryDataset_part1/ShelfImages',
                        help='圖片目錄')
-    parser.add_argument('--output-dir', type=str, default='../data/GroceryOWOD',
-                       help='輸出目錄')
+    parser.add_argument('--output-dir', type=str, default='../data/OWOD',
+                       help='OWOD 數據集根目錄 (如 data/OWOD)')
+    parser.add_argument('--dataset-name', type=str, default='GroceryOWOD',
+                       help='數據集名稱子目錄 (如 GroceryOWOD)')
     parser.add_argument('--task-split', type=int, nargs='+', default=[3, 3, 3, 2],
                        help='每個任務的類別數 (例如: 3 3 3 2)')
     parser.add_argument('--train-ratio', type=float, default=0.7,
@@ -430,12 +452,13 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     if args.verify_only:
-        verify_owod_data(args.output_dir)
+        verify_owod_data(args.output_dir, args.dataset_name)
     else:
         convert_to_owod(
             coco_file=args.coco_file,
             image_dir=args.image_dir,
             output_root=args.output_dir,
+            dataset_name=args.dataset_name,
             task_split=args.task_split,
             train_ratio=args.train_ratio,
             seed=args.seed
