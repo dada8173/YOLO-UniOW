@@ -15,6 +15,7 @@ def parse_args():
     parser.add_argument('--wildcard', type=str, default='object', help='Wildcard to extract features from')
     parser.add_argument('--save_path', type=str, default='embeddings', help='Save path for extracted features')
     parser.add_argument('--extract_tuned', action='store_true', help='Extract tuned wildcard embeddings')
+    parser.add_argument('--dataset', type=str, default=None, help='Dataset name (e.g., GroceryOWOD, MOWODB)')
     return parser.parse_args()
 
 
@@ -70,8 +71,15 @@ if __name__ == "__main__":
 
         # extract features
         extract_wildcard_feats(model, wildcard=args.wildcard, save_path=save_path)
-        for i in range(1, 5):
-            extract_feats(model, dataset='MOWODB', task=i, save_path=save_path)
-            extract_feats(model, dataset='SOWODB', task=i, save_path=save_path)
-            if i < 4:
-                extract_feats(model, dataset='nuOWODB', task=i, save_path=save_path)
+        
+        if args.dataset:
+            # Extract for specific dataset
+            for i in range(1, 5):
+                extract_feats(model, dataset=args.dataset, task=i, save_path=save_path)
+        else:
+            # Extract for default datasets
+            for i in range(1, 5):
+                extract_feats(model, dataset='MOWODB', task=i, save_path=save_path)
+                extract_feats(model, dataset='SOWODB', task=i, save_path=save_path)
+                if i < 4:
+                    extract_feats(model, dataset='nuOWODB', task=i, save_path=save_path)

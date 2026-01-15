@@ -25,31 +25,34 @@ GroceryDataset_part1/
 
 ### 處理後（OWOD/VOC 格式）
 ```
-data/GroceryOWOD/
-├── JPEGImages/                    # 所有原始圖片
-│   ├── image_001.jpg
-│   ├── image_002.jpg
-│   └── ... (354 張)
+data/OWOD/
+├── JPEGImages/                    # 圖片資料夾
+│   └── GroceryOWOD/               # 資料集子資料夾
+│       ├── image_001.jpg
+│       ├── image_002.jpg
+│       └── ... (354 張)
 │
-├── Annotations/                   # VOC XML 格式標註
-│   ├── image_001.xml
-│   ├── image_002.xml
-│   └── ... (354 個)
+├── Annotations/                   # VOC XML 標註資料夾
+│   └── GroceryOWOD/               # 資料集子資料夾
+│       ├── image_001.xml
+│       ├── image_002.xml
+│       └── ... (354 個)
 │
-└── ImageSets/                     # 數據集分割文件
-    ├── t1_train.txt              # Task 1 訓練集 (245 張)
-    ├── t1_known.txt              # Task 1 已知類別集 (245 張)
-    │
-    ├── t2_train.txt              # Task 2 訓練集 (245 張)
-    ├── t2_known.txt              # Task 2 已知類別集 (245 張)
-    │
-    ├── t3_train.txt              # Task 3 訓練集 (245 張)
-    ├── t3_known.txt              # Task 3 已知類別集 (245 張)
-    │
-    ├── t4_train.txt              # Task 4 訓練集 (245 張)
-    ├── t4_known.txt              # Task 4 已知類別集 (245 張)
-    │
-    └── test.txt                  # 測試集 (109 張)
+└── ImageSets/                     # 數據集分割文件資料夾
+    └── GroceryOWOD/               # 資料集子資料夾
+        ├── t1_train.txt           # Task 1 訓練集 (245 張)
+        ├── t1_known.txt           # Task 1 已知類別集 (245 張)
+        │
+        ├── t2_train.txt           # Task 2 訓練集 (245 張)
+        ├── t2_known.txt           # Task 2 已知類別集 (245 張)
+        │
+        ├── t3_train.txt           # Task 3 訓練集 (245 張)
+        ├── t3_known.txt           # Task 3 已知類別集 (245 張)
+        │
+        ├── t4_train.txt           # Task 4 訓練集 (245 張)
+        ├── t4_known.txt           # Task 4 已知類別集 (245 張)
+        │
+        └── test.txt               # 測試集 (109 張)
 ```
 
 ---
@@ -58,7 +61,7 @@ data/GroceryOWOD/
 
 ### XML 文件位置
 ```
-data/GroceryOWOD/Annotations/image_001.xml
+data/OWOD/Annotations/GroceryOWOD/image_001.xml
 ```
 
 ### XML 結構與說明
@@ -66,9 +69,9 @@ data/GroceryOWOD/Annotations/image_001.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <annotation>
   <!-- 圖片元數據 -->
-  <folder>GroceryOWOD</folder>          <!-- 數據集文件夾名 -->
+  <folder>GroceryOWOD</folder>          <!-- 資料集子資料夾名 -->
   <filename>image_001.jpg</filename>    <!-- 圖片文件名 -->
-  <path>/path/to/image_001.jpg</path>  <!-- 圖片完整路徑 -->
+  <path>/workspace/data/OWOD/JPEGImages/GroceryOWOD/image_001.jpg</path>  <!-- 圖片完整路徑 -->
   
   <!-- 圖片尺寸 -->
   <size>
@@ -264,7 +267,7 @@ Task 4 (Task 3 的基礎上):
 <annotation>
   <folder>GroceryOWOD</folder>
   <filename>image_001.jpg</filename>
-  <path>/workspace/data/GroceryOWOD/JPEGImages/image_001.jpg</path>
+  <path>/workspace/data/OWOD/JPEGImages/GroceryOWOD/image_001.jpg</path>
   
   <size>
     <width>1280</width>
