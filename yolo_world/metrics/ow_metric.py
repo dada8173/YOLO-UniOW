@@ -382,11 +382,11 @@ def voc_eval(detpath, annopath, imagesetfile, classname, ovthresh=0.5, use_07_me
     mapping = {}   # follow RandBox to deduplicate
     for imagename in imagenames:
         rec = parse_rec(annopath.format(imagename), tuple(known_classes))
-        # if rec is not None:
-        if rec is not None and int(imagename) not in mapping:
+        # string-based mapping to support non-numeric image ids (e.g., Grocery dataset)
+        if rec is not None and imagename not in mapping:
             recs[imagename] = rec
             imagenames_filtered.append(imagename)
-            mapping[int(imagename)] = imagename
+            mapping[imagename] = imagename
 
     imagenames = imagenames_filtered
 
@@ -424,7 +424,9 @@ def voc_eval(detpath, annopath, imagesetfile, classname, ovthresh=0.5, use_07_me
 
     for d in range(nd):
         # R = class_recs[image_ids[d]]
-        R = class_recs[mapping[int(image_ids[d])]]
+        if image_ids[d] not in mapping:
+            continue
+        R = class_recs[mapping[image_ids[d]]]
         bb = BB[d, :].astype(float)
         ovmax = -np.inf
         BBGT = R["bbox"].astype(float)
@@ -497,7 +499,9 @@ def voc_eval(detpath, annopath, imagesetfile, classname, ovthresh=0.5, use_07_me
     is_unk = np.zeros(nd)
     for d in range(nd):
         # R = unknown_class_recs[image_ids[d]]
-        R = unknown_class_recs[mapping[int(image_ids[d])]]
+        if image_ids[d] not in mapping:
+            continue
+        R = unknown_class_recs[mapping[image_ids[d]]]
         bb = BB[d, :].astype(float)
         ovmax = -np.inf
         BBGT = R["bbox"].astype(float)
