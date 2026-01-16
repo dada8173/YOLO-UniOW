@@ -74,7 +74,16 @@ model = dict(
 # dataset settings
 owod_train_dataset = dict(
     _delete_=True,
-    **_base_.owod_train_dataset,
+    type='MultiModalOWDataset',
+    dataset=dict(
+        type='OWODDataset',
+        data_root=_base_.owod_root,
+        image_set=_base_.train_image_set,
+        dataset=_base_.owod_dataset,
+        owod_cfg=_base_.owod_cfg,
+        training_strategy=_base_.training_strategy,
+        filter_cfg=dict(filter_empty_gt=True, min_size=32)),  # 過濾沒有有效標註的圖像
+    class_text_path=_base_.class_text_path,
     pipeline=_base_.train_pipeline
 )
 
