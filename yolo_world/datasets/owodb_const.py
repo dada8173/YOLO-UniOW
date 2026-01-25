@@ -122,6 +122,57 @@ VOC_COCO_CLASS_NAMES["GroceryOWOD"] = tuple(itertools.chain(
     GROCERY_T4_CLASS_NAMES, 
     UNK_CLASS))
 
+# LocountOWOD
+LOCOUNT_T1_CLASS_NAMES = [
+    "Baby crib", "Dried fish", "Children underwear", "Knives", "Air conditioning fan",
+    "Electric steaming pan", "Fish tofu", "Hair drier", "Cutter", "Band aid",
+    "Baby carriage", "Mouth wash", "Electric iron", "Ginger Tea", "Forks",
+    "Comb", "Skate", "Television", "Razor", "Sour Plum Soup", "Walnut powder",
+    "Dried beans", "Pencil case", "Hair gel", "Baby Toys", "Washing machine",
+    "Spoon", "Makeup tools", "Baby slippers", "Pie", "Refrigerator",
+    "Cotton swab", "Baby handkerchiefs", "Socket", "Herbal tea"
+]
+
+LOCOUNT_T2_CLASS_NAMES = [
+    "Lotus root flour", "Guozhen", "Electromagnetic furnace", "Desk lamp", "Badminton",
+    "Adult milk powder", "Quick-frozen Tangyuan", "Soybean Milk machine",
+    "Electric Hot pot", "Care Kit", "Electric fan", "Adult Diapers", "Sesame paste",
+    "Air conditioner", "Children Toys", "Lingerie", "Hot strips", "Emulsion",
+    "Notebook", "Baby Furniture", "Dried meat", "Football", "Ice cream",
+    "Microwave Oven", "Electric kettle", "Flour", "Rise", "Children Socks",
+    "Soymilk", "Cake", "Juicer", "Pasta", "Rubber ball", "Mixed congee",
+    "Hair dye"
+]
+
+LOCOUNT_T3_CLASS_NAMES = [
+    "Basketball", "Potato chips", "Facial mask", "Pot shovel", "Baby diapers",
+    "Children hats", "Rice cooker", "Chewing gum", "Sauce", "Vinegar", "Stool",
+    "Soup ladle", "Cooking wine", "Tampon", "Quick-frozen Wonton",
+    "Thermos bottle", "Draw bar box", "Chopping block", "Trousers", "Biscuits",
+    "Children shoes", "Noodle", "Quick-frozen dumplings", "Electric frying pan",
+    "Tea", "Chopsticks", "Can", "Knapsack", "Chocolates", "Baby tableware",
+    "Oats", "Cocktail", "Coat hanger", "Storage bottle", "Tea beverage"
+]
+
+LOCOUNT_T4_CLASS_NAMES = [
+    "Facial Cleanser", "Sports cup", "Trash", "Dairy", "Disposable bag",
+    "Bedding set", "Men underwear", "Disposable cups", "Jacket", "Mug",
+    "Adult shoes", "Baby milk powder", "Soy sauce", "Adult socks", "Soap",
+    "Food box", "Bath lotion", "Fresh-keeping film", "Adult hat", "Toothbrush",
+    "Coffee", "Basin", "Pen", "Liquor and Spirits",
+    "Baby washing and nursing supplie", "Dinner plate", "Bowl", "Storage box",
+    "Instant noodles", "Hair conditioner", "Shampoo", "Red wine", "Toothpaste",
+    "Skin care set", "Carbonated drinks"
+]
+
+VOC_COCO_CLASS_NAMES["LocountOWOD"] = tuple(itertools.chain(
+    LOCOUNT_T1_CLASS_NAMES,
+    LOCOUNT_T2_CLASS_NAMES,
+    LOCOUNT_T3_CLASS_NAMES,
+    LOCOUNT_T4_CLASS_NAMES,
+    UNK_CLASS
+))
+
 # GroZi-120 OWOD
 GROZI_T1_CLASS_NAMES = [
     "Bausch & Lomb Renu All in One Multi Purpose Solution", "Chex Mix", "Gardetto's Original Recipe",

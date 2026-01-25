@@ -20,6 +20,10 @@ owod_settings = {
         "task_list": [0, 3, 6, 9, 10],
         "test_image_set": "test",
     },
+    "LocountOWOD": {
+        "task_list": [0, 35, 70, 105, 140],
+        "test_image_set": "test",
+    },
     # 4 tasks
     "GroZi120OWOD": {
         "task_list": [0, 30, 60, 90, 120],  # 120個商品分為4個任務，每個任務30個
