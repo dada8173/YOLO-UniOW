@@ -23,7 +23,7 @@ work_dir = 'work_dirs/locount_owod'
 
 import os
 _load_from = os.getenv('LOAD_FROM', None)
-load_from = _load_from if _load_from else r'C:\Users\dachen\YOLO-UniOW\work_dirs\yolo_uniow_s_lora_bn_1e-3_20e_8gpus_owod\best_owod_Both_epoch_20.pth'
+load_from = _load_from if _load_from else r'C:\Users\opdad\YOLO-UniOW\best_owod_Both_epoch_20.pth'
 
 # trainable (1), frozen (0)
 embedding_mask = ([0] * _base_.PREV_INTRODUCED_CLS +    # previous classes
