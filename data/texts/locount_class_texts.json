@@ -1,0 +1,842 @@
+{
+  "Bowl": [
+    "Bowl",
+    "a Bowl",
+    "a photo of Bowl",
+    "Bowl on a store shelf"
+  ],
+  "Dinner plate": [
+    "Dinner plate",
+    "a Dinner plate",
+    "a photo of Dinner plate",
+    "Dinner plate on a store shelf"
+  ],
+  "Carbonated drinks": [
+    "Carbonated drinks",
+    "a Carbonated drinks",
+    "a photo of Carbonated drinks",
+    "Carbonated drinks on a store shelf"
+  ],
+  "Shampoo": [
+    "Shampoo",
+    "a Shampoo",
+    "a photo of Shampoo",
+    "Shampoo on a store shelf"
+  ],
+  "Instant noodles": [
+    "Instant noodles",
+    "a Instant noodles",
+    "a photo of Instant noodles",
+    "Instant noodles on a store shelf"
+  ],
+  "Pen": [
+    "Pen",
+    "a Pen",
+    "a photo of Pen",
+    "Pen on a store shelf"
+  ],
+  "Red wine": [
+    "Red wine",
+    "a Red wine",
+    "a photo of Red wine",
+    "Red wine on a store shelf"
+  ],
+  "Skin care set": [
+    "Skin care set",
+    "a Skin care set",
+    "a photo of Skin care set",
+    "Skin care set on a store shelf"
+  ],
+  "Facial Cleanser": [
+    "Facial Cleanser",
+    "a Facial Cleanser",
+    "a photo of Facial Cleanser",
+    "Facial Cleanser on a store shelf"
+  ],
+  "Storage box": [
+    "Storage box",
+    "a Storage box",
+    "a photo of Storage box",
+    "Storage box on a store shelf"
+  ],
+  "Basin": [
+    "Basin",
+    "a Basin",
+    "a photo of Basin",
+    "Basin on a store shelf"
+  ],
+  "Toothpaste": [
+    "Toothpaste",
+    "a Toothpaste",
+    "a photo of Toothpaste",
+    "Toothpaste on a store shelf"
+  ],
+  "Liquor and Spirits": [
+    "Liquor and Spirits",
+    "a Liquor and Spirits",
+    "a photo of Liquor and Spirits",
+    "Liquor and Spirits on a store shelf"
+  ],
+  "Biscuits": [
+    "Biscuits",
+    "a Biscuits",
+    "a photo of Biscuits",
+    "Biscuits on a store shelf"
+  ],
+  "Bath lotion": [
+    "Bath lotion",
+    "a Bath lotion",
+    "a photo of Bath lotion",
+    "Bath lotion on a store shelf"
+  ],
+  "Chocolates": [
+    "Chocolates",
+    "a Chocolates",
+    "a photo of Chocolates",
+    "Chocolates on a store shelf"
+  ],
+  "Baby milk powder": [
+    "Baby milk powder",
+    "a Baby milk powder",
+    "a photo of Baby milk powder",
+    "Baby milk powder on a store shelf"
+  ],
+  "Dairy": [
+    "Dairy",
+    "a Dairy",
+    "a photo of Dairy",
+    "Dairy on a store shelf"
+  ],
+  "Coffee": [
+    "Coffee",
+    "a Coffee",
+    "a photo of Coffee",
+    "Coffee on a store shelf"
+  ],
+  "Baby washing and nursing supplie": [
+    "Baby washing and nursing supplie",
+    "a Baby washing and nursing supplie",
+    "a photo of Baby washing and nursing supplie",
+    "Baby washing and nursing supplie on a store shelf"
+  ],
+  "Mug": [
+    "Mug",
+    "a Mug",
+    "a photo of Mug",
+    "Mug on a store shelf"
+  ],
+  "Hair conditioner": [
+    "Hair conditioner",
+    "a Hair conditioner",
+    "a photo of Hair conditioner",
+    "Hair conditioner on a store shelf"
+  ],
+  "Can": [
+    "Can",
+    "a Can",
+    "a photo of Can",
+    "Can on a store shelf"
+  ],
+  "Potato chips": [
+    "Potato chips",
+    "a Potato chips",
+    "a photo of Potato chips",
+    "Potato chips on a store shelf"
+  ],
+  "Disposable cups": [
+    "Disposable cups",
+    "a Disposable cups",
+    "a photo of Disposable cups",
+    "Disposable cups on a store shelf"
+  ],
+  "Chewing gum": [
+    "Chewing gum",
+    "a Chewing gum",
+    "a photo of Chewing gum",
+    "Chewing gum on a store shelf"
+  ],
+  "Jacket": [
+    "Jacket",
+    "a Jacket",
+    "a photo of Jacket",
+    "Jacket on a store shelf"
+  ],
+  "Disposable bag": [
+    "Disposable bag",
+    "a Disposable bag",
+    "a photo of Disposable bag",
+    "Disposable bag on a store shelf"
+  ],
+  "Tea beverage": [
+    "Tea beverage",
+    "a Tea beverage",
+    "a photo of Tea beverage",
+    "Tea beverage on a store shelf"
+  ],
+  "Baby tableware": [
+    "Baby tableware",
+    "a Baby tableware",
+    "a photo of Baby tableware",
+    "Baby tableware on a store shelf"
+  ],
+  "Chopsticks": [
+    "Chopsticks",
+    "a Chopsticks",
+    "a photo of Chopsticks",
+    "Chopsticks on a store shelf"
+  ],
+  "Soup ladle": [
+    "Soup ladle",
+    "a Soup ladle",
+    "a photo of Soup ladle",
+    "Soup ladle on a store shelf"
+  ],
+  "Sauce": [
+    "Sauce",
+    "a Sauce",
+    "a photo of Sauce",
+    "Sauce on a store shelf"
+  ],
+  "Vinegar": [
+    "Vinegar",
+    "a Vinegar",
+    "a photo of Vinegar",
+    "Vinegar on a store shelf"
+  ],
+  "Quick-frozen dumplings": [
+    "Quick-frozen dumplings",
+    "a Quick-frozen dumplings",
+    "a photo of Quick-frozen dumplings",
+    "Quick-frozen dumplings on a store shelf"
+  ],
+  "Adult hat": [
+    "Adult hat",
+    "a Adult hat",
+    "a photo of Adult hat",
+    "Adult hat on a store shelf"
+  ],
+  "Adult shoes": [
+    "Adult shoes",
+    "a Adult shoes",
+    "a photo of Adult shoes",
+    "Adult shoes on a store shelf"
+  ],
+  "Trousers": [
+    "Trousers",
+    "a Trousers",
+    "a photo of Trousers",
+    "Trousers on a store shelf"
+  ],
+  "Adult socks": [
+    "Adult socks",
+    "a Adult socks",
+    "a photo of Adult socks",
+    "Adult socks on a store shelf"
+  ],
+  "Bedding set": [
+    "Bedding set",
+    "a Bedding set",
+    "a photo of Bedding set",
+    "Bedding set on a store shelf"
+  ],
+  "Trash": [
+    "Trash",
+    "a Trash",
+    "a photo of Trash",
+    "Trash on a store shelf"
+  ],
+  "Oats": [
+    "Oats",
+    "a Oats",
+    "a photo of Oats",
+    "Oats on a store shelf"
+  ],
+  "Toothbrush": [
+    "Toothbrush",
+    "a Toothbrush",
+    "a photo of Toothbrush",
+    "Toothbrush on a store shelf"
+  ],
+  "Tea": [
+    "Tea",
+    "a Tea",
+    "a photo of Tea",
+    "Tea on a store shelf"
+  ],
+  "Sports cup": [
+    "Sports cup",
+    "a Sports cup",
+    "a photo of Sports cup",
+    "Sports cup on a store shelf"
+  ],
+  "Tampon": [
+    "Tampon",
+    "a Tampon",
+    "a photo of Tampon",
+    "Tampon on a store shelf"
+  ],
+  "Facial mask": [
+    "Facial mask",
+    "a Facial mask",
+    "a photo of Facial mask",
+    "Facial mask on a store shelf"
+  ],
+  "Soy sauce": [
+    "Soy sauce",
+    "a Soy sauce",
+    "a photo of Soy sauce",
+    "Soy sauce on a store shelf"
+  ],
+  "Food box": [
+    "Food box",
+    "a Food box",
+    "a photo of Food box",
+    "Food box on a store shelf"
+  ],
+  "Hair dye": [
+    "Hair dye",
+    "a Hair dye",
+    "a photo of Hair dye",
+    "Hair dye on a store shelf"
+  ],
+  "Stool": [
+    "Stool",
+    "a Stool",
+    "a photo of Stool",
+    "Stool on a store shelf"
+  ],
+  "Noodle": [
+    "Noodle",
+    "a Noodle",
+    "a photo of Noodle",
+    "Noodle on a store shelf"
+  ],
+  "Fresh-keeping film": [
+    "Fresh-keeping film",
+    "a Fresh-keeping film",
+    "a photo of Fresh-keeping film",
+    "Fresh-keeping film on a store shelf"
+  ],
+  "Cocktail": [
+    "Cocktail",
+    "a Cocktail",
+    "a photo of Cocktail",
+    "Cocktail on a store shelf"
+  ],
+  "Men underwear": [
+    "Men underwear",
+    "a Men underwear",
+    "a photo of Men underwear",
+    "Men underwear on a store shelf"
+  ],
+  "Quick-frozen Tangyuan": [
+    "Quick-frozen Tangyuan",
+    "a Quick-frozen Tangyuan",
+    "a photo of Quick-frozen Tangyuan",
+    "Quick-frozen Tangyuan on a store shelf"
+  ],
+  "Baby diapers": [
+    "Baby diapers",
+    "a Baby diapers",
+    "a photo of Baby diapers",
+    "Baby diapers on a store shelf"
+  ],
+  "Soap": [
+    "Soap",
+    "a Soap",
+    "a photo of Soap",
+    "Soap on a store shelf"
+  ],
+  "Cooking wine": [
+    "Cooking wine",
+    "a Cooking wine",
+    "a photo of Cooking wine",
+    "Cooking wine on a store shelf"
+  ],
+  "Pasta": [
+    "Pasta",
+    "a Pasta",
+    "a photo of Pasta",
+    "Pasta on a store shelf"
+  ],
+  "Hair gel": [
+    "Hair gel",
+    "a Hair gel",
+    "a photo of Hair gel",
+    "Hair gel on a store shelf"
+  ],
+  "Herbal tea": [
+    "Herbal tea",
+    "a Herbal tea",
+    "a photo of Herbal tea",
+    "Herbal tea on a store shelf"
+  ],
+  "Pot shovel": [
+    "Pot shovel",
+    "a Pot shovel",
+    "a photo of Pot shovel",
+    "Pot shovel on a store shelf"
+  ],
+  "Dried meat": [
+    "Dried meat",
+    "a Dried meat",
+    "a photo of Dried meat",
+    "Dried meat on a store shelf"
+  ],
+  "Storage bottle": [
+    "Storage bottle",
+    "a Storage bottle",
+    "a photo of Storage bottle",
+    "Storage bottle on a store shelf"
+  ],
+  "Basketball": [
+    "Basketball",
+    "a Basketball",
+    "a photo of Basketball",
+    "Basketball on a store shelf"
+  ],
+  "Rice cooker": [
+    "Rice cooker",
+    "a Rice cooker",
+    "a photo of Rice cooker",
+    "Rice cooker on a store shelf"
+  ],
+  "Pie": [
+    "Pie",
+    "a Pie",
+    "a photo of Pie",
+    "Pie on a store shelf"
+  ],
+  "Coat hanger": [
+    "Coat hanger",
+    "a Coat hanger",
+    "a photo of Coat hanger",
+    "Coat hanger on a store shelf"
+  ],
+  "Knapsack": [
+    "Knapsack",
+    "a Knapsack",
+    "a photo of Knapsack",
+    "Knapsack on a store shelf"
+  ],
+  "Rise": [
+    "Rise",
+    "a Rise",
+    "a photo of Rise",
+    "Rise on a store shelf"
+  ],
+  "Flour": [
+    "Flour",
+    "a Flour",
+    "a photo of Flour",
+    "Flour on a store shelf"
+  ],
+  "Notebook": [
+    "Notebook",
+    "a Notebook",
+    "a photo of Notebook",
+    "Notebook on a store shelf"
+  ],
+  "Quick-frozen Wonton": [
+    "Quick-frozen Wonton",
+    "a Quick-frozen Wonton",
+    "a photo of Quick-frozen Wonton",
+    "Quick-frozen Wonton on a store shelf"
+  ],
+  "Mixed congee": [
+    "Mixed congee",
+    "a Mixed congee",
+    "a photo of Mixed congee",
+    "Mixed congee on a store shelf"
+  ],
+  "Socket": [
+    "Socket",
+    "a Socket",
+    "a photo of Socket",
+    "Socket on a store shelf"
+  ],
+  "Razor": [
+    "Razor",
+    "a Razor",
+    "a photo of Razor",
+    "Razor on a store shelf"
+  ],
+  "Electric frying pan": [
+    "Electric frying pan",
+    "a Electric frying pan",
+    "a photo of Electric frying pan",
+    "Electric frying pan on a store shelf"
+  ],
+  "Emulsion": [
+    "Emulsion",
+    "a Emulsion",
+    "a photo of Emulsion",
+    "Emulsion on a store shelf"
+  ],
+  "Baby handkerchiefs": [
+    "Baby handkerchiefs",
+    "a Baby handkerchiefs",
+    "a photo of Baby handkerchiefs",
+    "Baby handkerchiefs on a store shelf"
+  ],
+  "Ice cream": [
+    "Ice cream",
+    "a Ice cream",
+    "a photo of Ice cream",
+    "Ice cream on a store shelf"
+  ],
+  "Microwave Oven": [
+    "Microwave Oven",
+    "a Microwave Oven",
+    "a photo of Microwave Oven",
+    "Microwave Oven on a store shelf"
+  ],
+  "Children shoes": [
+    "Children shoes",
+    "a Children shoes",
+    "a photo of Children shoes",
+    "Children shoes on a store shelf"
+  ],
+  "Chopping block": [
+    "Chopping block",
+    "a Chopping block",
+    "a photo of Chopping block",
+    "Chopping block on a store shelf"
+  ],
+  "Forks": [
+    "Forks",
+    "a Forks",
+    "a photo of Forks",
+    "Forks on a store shelf"
+  ],
+  "Draw bar box": [
+    "Draw bar box",
+    "a Draw bar box",
+    "a photo of Draw bar box",
+    "Draw bar box on a store shelf"
+  ],
+  "Football": [
+    "Football",
+    "a Football",
+    "a photo of Football",
+    "Football on a store shelf"
+  ],
+  "Guozhen": [
+    "Guozhen",
+    "a Guozhen",
+    "a photo of Guozhen",
+    "Guozhen on a store shelf"
+  ],
+  "Badminton": [
+    "Badminton",
+    "a Badminton",
+    "a photo of Badminton",
+    "Badminton on a store shelf"
+  ],
+  "Thermos bottle": [
+    "Thermos bottle",
+    "a Thermos bottle",
+    "a photo of Thermos bottle",
+    "Thermos bottle on a store shelf"
+  ],
+  "Children Toys": [
+    "Children Toys",
+    "a Children Toys",
+    "a photo of Children Toys",
+    "Children Toys on a store shelf"
+  ],
+  "Adult milk powder": [
+    "Adult milk powder",
+    "a Adult milk powder",
+    "a photo of Adult milk powder",
+    "Adult milk powder on a store shelf"
+  ],
+  "Children hats": [
+    "Children hats",
+    "a Children hats",
+    "a photo of Children hats",
+    "Children hats on a store shelf"
+  ],
+  "Makeup tools": [
+    "Makeup tools",
+    "a Makeup tools",
+    "a photo of Makeup tools",
+    "Makeup tools on a store shelf"
+  ],
+  "Adult Diapers": [
+    "Adult Diapers",
+    "a Adult Diapers",
+    "a photo of Adult Diapers",
+    "Adult Diapers on a store shelf"
+  ],
+  "Cake": [
+    "Cake",
+    "a Cake",
+    "a photo of Cake",
+    "Cake on a store shelf"
+  ],
+  "Electric kettle": [
+    "Electric kettle",
+    "a Electric kettle",
+    "a photo of Electric kettle",
+    "Electric kettle on a store shelf"
+  ],
+  "Baby Furniture": [
+    "Baby Furniture",
+    "a Baby Furniture",
+    "a photo of Baby Furniture",
+    "Baby Furniture on a store shelf"
+  ],
+  "Lingerie": [
+    "Lingerie",
+    "a Lingerie",
+    "a photo of Lingerie",
+    "Lingerie on a store shelf"
+  ],
+  "Cotton swab": [
+    "Cotton swab",
+    "a Cotton swab",
+    "a photo of Cotton swab",
+    "Cotton swab on a store shelf"
+  ],
+  "Pencil case": [
+    "Pencil case",
+    "a Pencil case",
+    "a photo of Pencil case",
+    "Pencil case on a store shelf"
+  ],
+  "Desk lamp": [
+    "Desk lamp",
+    "a Desk lamp",
+    "a photo of Desk lamp",
+    "Desk lamp on a store shelf"
+  ],
+  "Juicer": [
+    "Juicer",
+    "a Juicer",
+    "a photo of Juicer",
+    "Juicer on a store shelf"
+  ],
+  "Baby Toys": [
+    "Baby Toys",
+    "a Baby Toys",
+    "a photo of Baby Toys",
+    "Baby Toys on a store shelf"
+  ],
+  "Rubber ball": [
+    "Rubber ball",
+    "a Rubber ball",
+    "a photo of Rubber ball",
+    "Rubber ball on a store shelf"
+  ],
+  "Children Socks": [
+    "Children Socks",
+    "a Children Socks",
+    "a photo of Children Socks",
+    "Children Socks on a store shelf"
+  ],
+  "Baby slippers": [
+    "Baby slippers",
+    "a Baby slippers",
+    "a photo of Baby slippers",
+    "Baby slippers on a store shelf"
+  ],
+  "Sesame paste": [
+    "Sesame paste",
+    "a Sesame paste",
+    "a photo of Sesame paste",
+    "Sesame paste on a store shelf"
+  ],
+  "Electromagnetic furnace": [
+    "Electromagnetic furnace",
+    "a Electromagnetic furnace",
+    "a photo of Electromagnetic furnace",
+    "Electromagnetic furnace on a store shelf"
+  ],
+  "Skate": [
+    "Skate",
+    "a Skate",
+    "a photo of Skate",
+    "Skate on a store shelf"
+  ],
+  "Soymilk": [
+    "Soymilk",
+    "a Soymilk",
+    "a photo of Soymilk",
+    "Soymilk on a store shelf"
+  ],
+  "Hot strips": [
+    "Hot strips",
+    "a Hot strips",
+    "a photo of Hot strips",
+    "Hot strips on a store shelf"
+  ],
+  "Electric fan": [
+    "Electric fan",
+    "a Electric fan",
+    "a photo of Electric fan",
+    "Electric fan on a store shelf"
+  ],
+  "Comb": [
+    "Comb",
+    "a Comb",
+    "a photo of Comb",
+    "Comb on a store shelf"
+  ],
+  "Care Kit": [
+    "Care Kit",
+    "a Care Kit",
+    "a photo of Care Kit",
+    "Care Kit on a store shelf"
+  ],
+  "Electric Hot pot": [
+    "Electric Hot pot",
+    "a Electric Hot pot",
+    "a photo of Electric Hot pot",
+    "Electric Hot pot on a store shelf"
+  ],
+  "Cutter": [
+    "Cutter",
+    "a Cutter",
+    "a photo of Cutter",
+    "Cutter on a store shelf"
+  ],
+  "Lotus root flour": [
+    "Lotus root flour",
+    "a Lotus root flour",
+    "a photo of Lotus root flour",
+    "Lotus root flour on a store shelf"
+  ],
+  "Air conditioner": [
+    "Air conditioner",
+    "a Air conditioner",
+    "a photo of Air conditioner",
+    "Air conditioner on a store shelf"
+  ],
+  "Electric iron": [
+    "Electric iron",
+    "a Electric iron",
+    "a photo of Electric iron",
+    "Electric iron on a store shelf"
+  ],
+  "Soybean Milk machine": [
+    "Soybean Milk machine",
+    "a Soybean Milk machine",
+    "a photo of Soybean Milk machine",
+    "Soybean Milk machine on a store shelf"
+  ],
+  "Washing machine": [
+    "Washing machine",
+    "a Washing machine",
+    "a photo of Washing machine",
+    "Washing machine on a store shelf"
+  ],
+  "Mouth wash": [
+    "Mouth wash",
+    "a Mouth wash",
+    "a photo of Mouth wash",
+    "Mouth wash on a store shelf"
+  ],
+  "Spoon": [
+    "Spoon",
+    "a Spoon",
+    "a photo of Spoon",
+    "Spoon on a store shelf"
+  ],
+  "Refrigerator": [
+    "Refrigerator",
+    "a Refrigerator",
+    "a photo of Refrigerator",
+    "Refrigerator on a store shelf"
+  ],
+  "Baby carriage": [
+    "Baby carriage",
+    "a Baby carriage",
+    "a photo of Baby carriage",
+    "Baby carriage on a store shelf"
+  ],
+  "Dried beans": [
+    "Dried beans",
+    "a Dried beans",
+    "a photo of Dried beans",
+    "Dried beans on a store shelf"
+  ],
+  "Hair drier": [
+    "Hair drier",
+    "a Hair drier",
+    "a photo of Hair drier",
+    "Hair drier on a store shelf"
+  ],
+  "Television": [
+    "Television",
+    "a Television",
+    "a photo of Television",
+    "Television on a store shelf"
+  ],
+  "Walnut powder": [
+    "Walnut powder",
+    "a Walnut powder",
+    "a photo of Walnut powder",
+    "Walnut powder on a store shelf"
+  ],
+  "Band aid": [
+    "Band aid",
+    "a Band aid",
+    "a photo of Band aid",
+    "Band aid on a store shelf"
+  ],
+  "Children underwear": [
+    "Children underwear",
+    "a Children underwear",
+    "a photo of Children underwear",
+    "Children underwear on a store shelf"
+  ],
+  "Electric steaming pan": [
+    "Electric steaming pan",
+    "a Electric steaming pan",
+    "a photo of Electric steaming pan",
+    "Electric steaming pan on a store shelf"
+  ],
+  "Sour Plum Soup": [
+    "Sour Plum Soup",
+    "a Sour Plum Soup",
+    "a photo of Sour Plum Soup",
+    "Sour Plum Soup on a store shelf"
+  ],
+  "Air conditioning fan": [
+    "Air conditioning fan",
+    "a Air conditioning fan",
+    "a photo of Air conditioning fan",
+    "Air conditioning fan on a store shelf"
+  ],
+  "Fish tofu": [
+    "Fish tofu",
+    "a Fish tofu",
+    "a photo of Fish tofu",
+    "Fish tofu on a store shelf"
+  ],
+  "Ginger Tea": [
+    "Ginger Tea",
+    "a Ginger Tea",
+    "a photo of Ginger Tea",
+    "Ginger Tea on a store shelf"
+  ],
+  "Knives": [
+    "Knives",
+    "a Knives",
+    "a photo of Knives",
+    "Knives on a store shelf"
+  ],
+  "Dried fish": [
+    "Dried fish",
+    "a Dried fish",
+    "a photo of Dried fish",
+    "Dried fish on a store shelf"
+  ],
+  "Baby crib": [
+    "Baby crib",
+    "a Baby crib",
+    "a photo of Baby crib",
+    "Baby crib on a store shelf"
+  ]
+}
