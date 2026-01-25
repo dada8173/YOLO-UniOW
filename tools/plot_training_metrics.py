@@ -32,12 +32,55 @@ class TrainingLogAnalyzer:
         self.training_data = []  # 訓練 loss 數據
         self.validation_data = {}  # 驗證指標數據
         
+        # 嘗試自動偵測編碼（處理 Windows 產生的 UTF-16 / BOM 案例）
+        self._encoding = self._detect_encoding()
+    
+    def _detect_encoding(self) -> str:
+        """根據檔案 BOM 及嘗試讀取自動偵測 log 檔編碼"""
+        try:
+            with open(self.log_path, 'rb') as fb:
+                raw = fb.read(4)
+            # BOM 檢測
+            if raw.startswith(b'\xff\xfe') or raw.startswith(b'\xfe\xff'):
+                return 'utf-16'
+            if raw.startswith(b'\xef\xbb\xbf'):
+                return 'utf-8-sig'
+            # 嘗試用 utf-8 讀取
+            with open(self.log_path, 'r', encoding='utf-8') as f:
+                f.read(1024)
+            return 'utf-8'
+        except Exception:
+            # 退回到常見 Windows 編碼
+            try:
+                with open(self.log_path, 'r', encoding='utf-16') as f:
+                    f.read(1024)
+                return 'utf-16'
+            except Exception:
+                return 'cp1252'
+    
+    def _read_lines(self) -> List[str]:
+        """以偵測到的編碼讀取行文字，最後備援忽略錯誤"""
+        try:
+            with open(self.log_path, 'r', encoding=self._encoding) as f:
+                return f.readlines()
+        except Exception:
+            with open(self.log_path, 'r', encoding=self._encoding, errors='ignore') as f:
+                return f.readlines()
+    
+    def _read_text(self) -> str:
+        """以偵測到的編碼讀取整段文字，最後備援忽略錯誤"""
+        try:
+            with open(self.log_path, 'r', encoding=self._encoding) as f:
+                return f.read()
+        except Exception:
+            with open(self.log_path, 'r', encoding=self._encoding, errors='ignore') as f:
+                return f.read()
+        
     def parse_training_losses(self) -> List[Dict]:
         """提取訓練 loss"""
         training_data = []
         
-        with open(self.log_path, 'r', encoding='utf-8') as f:
-            for line in f:
+        for line in self._read_lines():
                 # 匹配訓練 loss 行
                 # 例如: Epoch(train)  [1][41/41]  base_lr: 1.0000e-03 ... loss: 192.2991 ...
                 if 'Epoch(train)' in line:
@@ -85,8 +128,7 @@ class TrainingLogAnalyzer:
         """提取驗證指標"""
         metrics_by_epoch = {}
         
-        with open(self.log_path, 'r', encoding='utf-8') as f:
-            content = f.read()
+        content = self._read_text()
         
         # 查找驗證輸出區塊
         # 匹配模式：從 "Saving checkpoint at X epochs" 到下一個相同標記或文件結尾
