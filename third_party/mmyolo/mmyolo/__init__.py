@@ -31,9 +31,8 @@ assert (mmengine_version >= digit_version(mmengine_minimum_version)
     f'<{mmengine_maximum_version}.'
 
 assert (mmdet_version >= digit_version(mmdet_minimum_version)
-        and mmdet_version < digit_version(mmdet_maximum_version)), \
+        and mmdet_version <= digit_version(mmdet_maximum_version)), \
     f'MMDetection=={mmdet.__version__} is used but incompatible. ' \
-    f'Please install mmdet>={mmdet_minimum_version}, ' \
-    f'<{mmdet_maximum_version}.'
+    f'Please install mmdet>={mmdet_minimum_version}, <={mmdet_maximum_version}.'
 
 __all__ = ['__version__', 'version_info', 'digit_version']
