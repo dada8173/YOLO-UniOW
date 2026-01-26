@@ -104,7 +104,7 @@ def create_voc_xml(image_path, boxes, output_path):
         f.write(pretty_xml)
 
 
-def convert_locount_to_voc(locount_root, owod_root):
+def convert_locount_to_voc(locount_root, owod_root, only_stems=None):
     """
     Convert Locount dataset to VOC format.
     
@@ -136,6 +136,8 @@ def convert_locount_to_voc(locount_root, owod_root):
     total_converted = 0
     total_errors = 0
     
+    only_set = set(only_stems) if only_stems else None
+
     for split_name, paths in splits.items():
         label_dir = paths['label_dir']
         image_dir = paths['image_dir']
@@ -149,6 +151,9 @@ def convert_locount_to_voc(locount_root, owod_root):
         
         for label_file in tqdm(label_files, desc=f"Converting {split_name}"):
             stem = label_file.stem
+
+            if only_set and stem not in only_set:
+                continue
             
             # Find image file
             image_path = None
@@ -190,9 +195,8 @@ def convert_locount_to_voc(locount_root, owod_root):
                 continue
             
             if not boxes:
-                print(f"Warning: No valid boxes in {label_file}")
-                total_errors += 1
-                continue
+                # keep empty annotations so image lists stay aligned
+                print(f"Warning: No valid boxes in {label_file}, writing empty annotation")
             
             # Copy image
             output_img_path = output_img_dir / f"{stem}.jpg"
@@ -237,6 +241,8 @@ if __name__ == '__main__':
     parser.add_argument('--owod-root', type=str,
                         default='data/OWOD',
                         help='Path to OWOD data root')
+    parser.add_argument('--only', type=str, nargs='*',
+                        help='Optional list of image stems to convert (e.g., 022101)')
     args = parser.parse_args()
     
-    convert_locount_to_voc(args.locount_root, args.owod_root)
+    convert_locount_to_voc(args.locount_root, args.owod_root, args.only)
