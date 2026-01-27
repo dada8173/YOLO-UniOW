@@ -25,6 +25,12 @@ import os
 _load_from = os.getenv('LOAD_FROM', None)
 load_from = _load_from if _load_from else r'C:\Users\opdad\YOLO-UniOW\best_owod_Both_epoch_20.pth'
 
+# Override dataset to LocountOWOD
+_dataset_env = os.getenv('DATASET', None)
+if _dataset_env:
+    import sys
+    sys.modules['__main__']._dataset = _dataset_env
+
 # trainable (1), frozen (0)
 embedding_mask = ([0] * _base_.PREV_INTRODUCED_CLS +    # previous classes
                   [1] * _base_.CUR_INTRODUCED_CLS  +    # current class
@@ -83,7 +89,7 @@ owod_train_dataset = dict(
         dataset=_base_.owod_dataset,
         owod_cfg=_base_.owod_cfg,
         training_strategy=_base_.training_strategy,
-        filter_cfg=dict(filter_empty_gt=True, min_size=32)),
+        filter_cfg=dict(filter_empty_gt=False, min_size=32)),
     class_text_path=_base_.class_text_path,
     pipeline=_base_.train_pipeline
 )
@@ -98,7 +104,7 @@ owod_val_dataset = dict(
     pipeline=_base_.test_pipeline
 )
 
-val_dataloader = dict(dataset=owod_val_dataset)
+val_dataloader = dict(batch_size=16, dataset=owod_val_dataset)
 test_dataloader = val_dataloader
 
 val_evaluator = dict(
