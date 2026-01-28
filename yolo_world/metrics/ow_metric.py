@@ -183,7 +183,9 @@ class OpenWorldMetric(BaseMetric):
                     num_kn_pred = num_kn_pred + len(lines)
                 else:
                     num_unk_pred = num_unk_pred + len(lines)
-
+            
+                # Count unknown predictions (should only be the unknown class index)
+                num_unk_pred = len(predictions.get(self.unknown_class_index, []))
                 with open(res_file_template.format(cls_name), "w") as f:
                     f.write("\n".join(lines))
 
