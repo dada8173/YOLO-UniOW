@@ -569,10 +569,14 @@ class YOLOv10Head(BaseDenseHead):
         if self.anchor_label:
             anchor_iou_thresh = self.anchor_label.get('iou_threshold', 0.5)
             anchor_score_thresh = self.anchor_label.get('score_threshold', 0.01)
-            overlaps = bbox_overlaps(flatten_pred_bboxes, gt_bboxes, mode='iou')
             anchor_scores = flatten_cls_preds[:, :, -1].detach().sigmoid()
             max_known_scores = flatten_cls_preds[:, :, :-2].detach().sigmoid().amax(dim=2)
-            unknown_mask = (overlaps.amax(dim=2) < anchor_iou_thresh) & (fg_mask_pre_prior == 0) & (anchor_scores > anchor_score_thresh) & (anchor_scores > max_known_scores)
+            if gt_bboxes.size(1) == 0:
+                # No GT in batch -> skip IoU-based filtering
+                unknown_mask = (fg_mask_pre_prior == 0) & (anchor_scores > anchor_score_thresh) & (anchor_scores > max_known_scores)
+            else:
+                overlaps = bbox_overlaps(flatten_pred_bboxes, gt_bboxes, mode='iou')
+                unknown_mask = (overlaps.amax(dim=2) < anchor_iou_thresh) & (fg_mask_pre_prior == 0) & (anchor_scores > anchor_score_thresh) & (anchor_scores > max_known_scores)
             assigned_scores[:, :, -2] = torch.where(unknown_mask,
                                                     anchor_scores,
                                                     assigned_scores[:, :, -2]) # unknown embedding score
@@ -716,10 +720,14 @@ class YOLOv10Head(BaseDenseHead):
         if self.anchor_label:
             anchor_iou_thresh = self.anchor_label.get('iou_threshold', 0.5)
             anchor_score_thresh = self.anchor_label.get('score_threshold', 0.01)
-            overlaps = bbox_overlaps(flatten_pred_bboxes, gt_bboxes, mode='iou')
             anchor_scores = flatten_cls_preds[:, :, -1].detach().sigmoid()
             max_known_scores = flatten_cls_preds[:, :, :-2].detach().sigmoid().amax(dim=2)
-            unknown_mask = (overlaps.amax(dim=2) < anchor_iou_thresh) & (fg_mask_pre_prior == 0) & (anchor_scores > anchor_score_thresh) & (anchor_scores > max_known_scores)
+            if gt_bboxes.size(1) == 0:
+                # No GT in batch -> skip IoU-based filtering
+                unknown_mask = (fg_mask_pre_prior == 0) & (anchor_scores > anchor_score_thresh) & (anchor_scores > max_known_scores)
+            else:
+                overlaps = bbox_overlaps(flatten_pred_bboxes, gt_bboxes, mode='iou')
+                unknown_mask = (overlaps.amax(dim=2) < anchor_iou_thresh) & (fg_mask_pre_prior == 0) & (anchor_scores > anchor_score_thresh) & (anchor_scores > max_known_scores)
             assigned_scores[:, :, -2] = torch.where(unknown_mask,
                                                     anchor_scores,
                                                     assigned_scores[:, :, -2]) # unknown embedding score
