@@ -181,11 +181,7 @@ class OpenWorldMetric(BaseMetric):
                 lines = predictions.get(cls_id, [])
                 if cls_name in self.known_classes:
                     num_kn_pred = num_kn_pred + len(lines)
-                else:
-                    num_unk_pred = num_unk_pred + len(lines)
-            
-                # Count unknown predictions (should only be the unknown class index)
-                num_unk_pred = len(predictions.get(self.unknown_class_index, []))
+                
                 with open(res_file_template.format(cls_name), "w") as f:
                     f.write("\n".join(lines))
 
@@ -219,6 +215,8 @@ class OpenWorldMetric(BaseMetric):
                 else:
                     print(f"{cls_name:40s}[{cls_id:02d}]: AR{thresh}={recs[thresh][-1]:.3f}, #pred={len(lines)}")
 
+            # Count unknown predictions correctly (only the unknown class)
+            num_unk_pred = len(predictions.get(self.unknown_class_index, []))
             self._logger.info("known classes has " + str(num_kn_pred) + " predictions.")
             self._logger.info("unknown classes has " + str(num_unk_pred) + " predictions.")
 
