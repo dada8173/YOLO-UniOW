@@ -17,7 +17,7 @@ neck_embed_channels = [128, 256, _base_.last_stage_out_channels // 2]
 neck_num_heads = [4, 8, _base_.last_stage_out_channels // 2 // 32]
 base_lr = 1e-3
 weight_decay = 0.025
-train_batch_size_per_gpu = 16
+train_batch_size_per_gpu = 32
 
 work_dir = 'work_dirs/locount_owod'
 
@@ -104,7 +104,7 @@ owod_val_dataset = dict(
     pipeline=_base_.test_pipeline
 )
 
-val_dataloader = dict(batch_size=16, dataset=owod_val_dataset)
+val_dataloader = dict(batch_size=32, dataset=owod_val_dataset)
 test_dataloader = val_dataloader
 
 val_evaluator = dict(
