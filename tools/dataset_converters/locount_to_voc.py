@@ -104,13 +104,15 @@ def create_voc_xml(image_path, boxes, output_path):
         f.write(pretty_xml)
 
 
-def convert_locount_to_voc(locount_root, owod_root, only_stems=None):
+def convert_locount_to_voc(locount_root, owod_root, only_stems=None, split_name=None):
     """
     Convert Locount dataset to VOC format.
     
     Args:
         locount_root: Path to Locount dataset root
         owod_root: Path to OWOD data root
+        only_stems: List of image stems to convert
+        split_name: Specific split to process ('train', 'test', or None for both)
     """
     locount_root = Path(locount_root)
     owod_root = Path(owod_root)
@@ -132,6 +134,10 @@ def convert_locount_to_voc(locount_root, owod_root, only_stems=None):
             'image_dir': locount_root / 'Locount_ImagesTest' / 'Locount_ImagesTest'
         }
     }
+    
+    # Filter splits if specified
+    if split_name:
+        splits = {split_name: splits[split_name]}
     
     total_converted = 0
     total_errors = 0
@@ -199,7 +205,7 @@ def convert_locount_to_voc(locount_root, owod_root, only_stems=None):
                 print(f"Warning: No valid boxes in {label_file}, writing empty annotation")
             
             # Copy image
-            output_img_path = output_img_dir / f"{stem}.jpg"
+            output_img_path = output_img_dir / f"{split_name}{stem}.jpg"
             try:
                 # Convert to RGB if needed and save as JPEG
                 with Image.open(image_path) as img:
@@ -212,7 +218,7 @@ def convert_locount_to_voc(locount_root, owod_root, only_stems=None):
                 continue
             
             # Create XML annotation
-            output_xml_path = output_ann_dir / f"{stem}.xml"
+            output_xml_path = output_ann_dir / f"{split_name}{stem}.xml"
             try:
                 create_voc_xml(output_img_path, boxes, output_xml_path)
                 total_converted += 1
@@ -243,6 +249,8 @@ if __name__ == '__main__':
                         help='Path to OWOD data root')
     parser.add_argument('--only', type=str, nargs='*',
                         help='Optional list of image stems to convert (e.g., 022101)')
+    parser.add_argument('--split', type=str, choices=['train', 'test'],
+                        help='Optional specific split to process (train or test)')
     args = parser.parse_args()
     
-    convert_locount_to_voc(args.locount_root, args.owod_root, args.only)
+    convert_locount_to_voc(args.locount_root, args.owod_root, args.only, args.split)
