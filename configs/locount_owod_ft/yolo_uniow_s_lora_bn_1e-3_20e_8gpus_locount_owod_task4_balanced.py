@@ -1,4 +1,4 @@
-_base_ = ['./yolo_uniow_s_lora_bn_1e-3_20e_8gpus_locount_owod.py']
+_base_ = ['./yolo_uniow_s_lora_bn_2e-3_20e_8gpus_locount_owod.py']
 
 oversample_thr = 0.1
 
