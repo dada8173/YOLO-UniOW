@@ -1,3 +1,16 @@
+# ============================================================
+# LocountOWOD 訓練配置 - 解凍版本
+# ============================================================
+# 配置說明：
+#   - Backbone: frozen_stages=4 (完全凍結)
+#   - Neck: freeze_all=True (完全凍結)
+#   - bbox_head: freeze_one2one=True (保留推理精度), freeze_one2many=False (解凍訓練分支)
+#   - 學習率: 5e-5 (保守修復，防止梯度爆炸)
+#   - 權重衰減: 0.01 (減半，增加適應性)
+#   - 梯度裁剪: max_norm=1.0 (強力穩定訓練)
+#   - 預訓練模型: best_owod_Both_epoch_20.pth
+# ============================================================
+
 _base_ = [('../../third_party/mmyolo/configs/yolov10/'
           'yolov10_s_syncbn_fast_8xb16-500e_coco.py'),
           '../datasets/owod_dataset.py']
@@ -15,15 +28,17 @@ val_interval_stage2 = 5
 text_channels = 512
 neck_embed_channels = [128, 256, _base_.last_stage_out_channels // 2]
 neck_num_heads = [4, 8, _base_.last_stage_out_channels // 2 // 32]
-base_lr = 1e-3
-weight_decay = 0.025
+
+# 保守修復：使用極低學習率防止梯度爆炸
+base_lr = 5e-5
+weight_decay = 0.01
 train_batch_size_per_gpu = 32
 
 work_dir = 'work_dirs/locount_owod'
 
 import os
 _load_from = os.getenv('LOAD_FROM', None)
-load_from = _load_from if _load_from else r'C:\Users\opdad\YOLO-UniOW\best_owod_Both_epoch_20.pth'
+load_from = _load_from if _load_from else r'best_owod_Both_epoch_20.pth'
 
 # Override dataset to LocountOWOD
 _dataset_env = os.getenv('DATASET', None)
@@ -48,7 +63,7 @@ model = dict(
     num_prev_classes=_base_.PREV_INTRODUCED_CLS,
     num_prompts=num_classes,
     freeze_prompt=False,
-    embedding_path=f'embeddings/uniow-s/{_base_.owod_dataset.lower()}_t{_base_.owod_task}.npy',
+    embedding_path='embeddings/uniow-s/locountowod_t1.npy',
     unknown_embedding_path='embeddings/uniow-s/object.npy',
     anchor_embedding_path='embeddings/uniow-s/object_tuned.npy',
     embedding_mask=embedding_mask,
@@ -59,17 +74,17 @@ model = dict(
         image_model={{_base_.model.backbone}},
         text_model=None,
         with_text_model=False,
-        frozen_stages=4,
+        frozen_stages=4,  # 🔒 完全凍結 Backbone
     ),
     neck=dict(
-        freeze_all=True,
+        freeze_all=True,  # 🔒 完全凍結 Neck
     ),
     bbox_head=dict(type='YOLOv10WorldHead',
                    infer_type=infer_type,
                    head_module=dict(type='YOLOv10WorldHeadModule',
                                     use_bn_head=True,
-                                    freeze_one2one=True,
-                                    freeze_one2many=True,
+                                    freeze_one2one=True,  # 🔒 保留推理精度
+                                    freeze_one2many=False,  # ✅ 解凍訓練分支
                                     embed_dims=text_channels,
                                     num_classes=num_training_classes)),
     train_cfg=dict(one2many_assigner=dict(num_classes=num_training_classes),
@@ -141,6 +156,7 @@ optim_wrapper = dict(optimizer=dict(
     lr=base_lr,
     weight_decay=weight_decay,
     batch_size_per_gpu=train_batch_size_per_gpu),
+                     clip_grad=dict(max_norm=1.0, norm_type=2),
                      paramwise_cfg=dict(bias_decay_mult=0.0,
                                         norm_decay_mult=0.0,
                                         custom_keys={
