@@ -20,7 +20,7 @@ neck_embed_channels = [128, 256, _base_.last_stage_out_channels // 2]
 neck_num_heads = [4, 8, _base_.last_stage_out_channels // 2 // 32]
 
 # 中等解凍使用較低學習率（降低5倍防止梯度爆炸）
-base_lr = 1e-4
+base_lr = 1e-5
 weight_decay = 0.01
 train_batch_size_per_gpu = 32
 
@@ -29,7 +29,7 @@ work_dir = 'work_dirs/locount_owod/t1_medium_unfrozen_36percent'
 
 import os
 # 使用指定的權重
-load_from = r'pretrained\yolo_uniow_s_lora_bn_5e-4_100e_8gpus_obj365v1_goldg_train_lvis_minival.pth'
+load_from = r'C:\\Users\\dachen\\YOLO-UniOW\\best_owod_Both_epoch_20.pth'
 
 # Override dataset to LocountOWOD - Task 1
 _dataset_env = 'LocountOWOD'
