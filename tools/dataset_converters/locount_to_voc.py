@@ -123,18 +123,29 @@ def convert_locount_to_voc(locount_root, owod_root, only_stems=None, split_name=
     output_img_dir.mkdir(parents=True, exist_ok=True)
     output_ann_dir.mkdir(parents=True, exist_ok=True)
     
-    # Process train and test splits
+    # Process train and test splits'
+    # pc的話
     splits = {
         'train': {
-            'label_dir': locount_root / 'Locount_GtTxtsTrain' / 'Locount_GtTxtsTrain',
-            'image_dir': locount_root / 'Locount_ImagesTrain' / 'Locount_ImagesTrain'
+            'label_dir': locount_root / 'Locount_GtTxtsTrain',
+            'image_dir': locount_root / 'Locount_ImagesTrain-002' / 'Locount_ImagesTrain'
         },
         'test': {
-            'label_dir': locount_root / 'Locount_GtTxtsTest' / 'Locount_GtTxtsTest',
-            'image_dir': locount_root / 'Locount_ImagesTest' / 'Locount_ImagesTest'
+            'label_dir': locount_root / 'Locount_GtTxtsTest',
+            'image_dir': locount_root / 'Locount_ImagesTest-003' / 'Locount_ImagesTest'
         }
     }
-    
+    # 筆電的話
+    #     splits = {
+    #     'train': {
+    #         'label_dir': locount_root / 'Locount_GtTxtsTrain',
+    #         'image_dir': locount_root / 'Locount_ImagesTrain-002' / 'Locount_ImagesTrain'
+    #     },
+    #     'test': {
+    #         'label_dir': locount_root / 'Locount_GtTxtsTest',
+    #         'image_dir': locount_root / 'Locount_ImagesTest-003' / 'Locount_ImagesTest'
+    #     }
+    # }
     # Filter splits if specified
     if split_name:
         splits = {split_name: splits[split_name]}
