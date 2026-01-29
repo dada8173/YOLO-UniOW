@@ -1,0 +1,69 @@
+Task 3 train list
+total_instances	144541
+unique_classes	64
+
+class	count
+Instant noodles	22335
+Pen	21870
+Liquor and Spirits	11187
+Potato chips	10550
+Mug	9518
+Jacket	6980
+Quick-frozen dumplings	5961
+Oats	4815
+Hair dye	4104
+Noodle	3522
+Quick-frozen Tangyuan	3465
+Hair conditioner	3408
+Hair gel	3266
+Pasta	2943
+Bowl	2785
+Herbal tea	2734
+Pot shovel	2184
+Coffee	2168
+Soup ladle	2158
+Pie	1919
+Men underwear	1509
+Notebook	1493
+Ice cream	1165
+Microwave Oven	1146
+Mixed congee	1128
+Dinner plate	1008
+Cocktail	1002
+Trousers	955
+Guozhen	844
+Quick-frozen Wonton	814
+Makeup tools	780
+Pencil case	647
+Lingerie	509
+Cake	444
+Knapsack	415
+Sauce	380
+Juicer	294
+Mouth wash	223
+Lotus root flour	207
+Toothpaste	182
+Hot strips	180
+Biscuits	177
+Hair drier	175
+Cutter	139
+Dried beans	87
+Adult socks	87
+Dried meat	83
+Fish tofu	71
+Sports cup	71
+Spoon	62
+Walnut powder	60
+Tea	54
+Soybean Milk machine	52
+Sesame paste	45
+Forks	39
+Disposable cups	34
+Knives	23
+Ginger Tea	21
+Chopsticks	20
+Sour Plum Soup	16
+Dried fish	14
+Toothbrush	8
+Adult milk powder	4
+Basin	2

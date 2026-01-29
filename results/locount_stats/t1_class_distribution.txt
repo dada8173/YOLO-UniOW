@@ -1,0 +1,63 @@
+Task 1 train list
+total_instances	190853
+unique_classes	58
+
+class	count
+Bowl	44324
+Carbonated drinks	16796
+Biscuits	14928
+Basin	14448
+Bath lotion	11521
+Baby milk powder	10966
+Chewing gum	9803
+Can	9799
+Dinner plate	9489
+Baby washing and nursing supplie	6869
+Baby tableware	6728
+Bedding set	4339
+Adult shoes	3851
+Adult socks	3476
+Baby diapers	2957
+Adult hat	2822
+Mug	2482
+Basketball	1669
+Baby handkerchiefs	1329
+Soup ladle	1312
+Pie	913
+Badminton	815
+Adult milk powder	739
+Trash	730
+Children Toys	714
+Adult Diapers	672
+Football	569
+Baby Furniture	525
+Baby Toys	509
+Chopsticks	482
+Cake	444
+Baby slippers	392
+Oats	325
+Soy sauce	310
+Storage box	264
+Children shoes	261
+Toothbrush	238
+Disposable cups	224
+Care Kit	223
+Forks	204
+Children hats	202
+Children Socks	196
+Baby carriage	179
+Children underwear	151
+Band aid	135
+Rubber ball	123
+Guozhen	84
+Air conditioner	83
+Air conditioning fan	77
+Stool	57
+Men underwear	34
+Sour Plum Soup	16
+Cooking wine	16
+Ginger Tea	14
+Electric fan	13
+Baby crib	9
+Pot shovel	2
+Razor	1

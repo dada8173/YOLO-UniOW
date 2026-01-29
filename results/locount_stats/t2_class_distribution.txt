@@ -1,0 +1,62 @@
+Task 2 train list
+total_instances	156160
+unique_classes	57
+
+class	count
+Dinner plate	30720
+Facial Cleanser	19864
+Bowl	15618
+Chocolates	13562
+Dairy	11909
+Coffee	9075
+Disposable cups	7963
+Disposable bag	7339
+Chopsticks	6386
+Facial mask	4655
+Soup ladle	3681
+Cooking wine	2592
+Cocktail	2540
+Herbal tea	2459
+Dried meat	2180
+Mug	1577
+Flour	1487
+Emulsion	1226
+Forks	1214
+Food box	1178
+Football	831
+Razor	788
+Cotton swab	609
+Desk lamp	544
+Electric kettle	493
+Can	446
+Comb	393
+Cutter	377
+Chopping block	335
+Basin	318
+Electromagnetic furnace	310
+Electric frying pan	304
+Electric iron	298
+Basketball	273
+Draw bar box	270
+Electric fan	225
+Coat hanger	221
+Storage bottle	200
+Fresh-keeping film	195
+Soy sauce	189
+Hot strips	180
+Electric Hot pot	177
+Pot shovel	143
+Electric steaming pan	123
+Rubber ball	116
+Spoon	100
+Dried beans	87
+Fish tofu	71
+Baby tableware	68
+Liquor and Spirits	64
+Storage box	47
+Badminton	34
+Rice cooker	33
+Knives	23
+Trash	19
+Air conditioner	17
+Dried fish	14

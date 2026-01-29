@@ -1,0 +1,69 @@
+Task 4 train list
+total_instances	150719
+unique_classes	64
+
+class	count
+Shampoo	21247
+Red wine	14289
+Storage box	13854
+Skin care set	11975
+Tea beverage	7387
+Soup ladle	6931
+Sauce	6870
+Vinegar	6687
+Toothpaste	6273
+Trousers	5816
+Tea	4814
+Tampon	4429
+Trash	4413
+Stool	3853
+Bowl	3692
+Sports cup	3620
+Dinner plate	2394
+Toothbrush	2135
+Pot shovel	2017
+Soy sauce	1958
+Rise	1545
+Rice cooker	1500
+Can	1458
+Razor	1454
+Socket	1401
+Jacket	1171
+Forks	1152
+Basin	884
+Facial Cleanser	833
+Chopsticks	604
+Pasta	549
+Skate	413
+Storage bottle	403
+Cutter	377
+Mug	352
+Sesame paste	254
+Washing machine	139
+Television	124
+Spoon	124
+Rubber ball	123
+Basketball	119
+Food box	109
+Thermos bottle	107
+Oats	97
+Lotus root flour	92
+Bath lotion	78
+Refrigerator	77
+Walnut powder	70
+Mouth wash	67
+Soymilk	59
+Soybean Milk machine	52
+Guozhen	46
+Soap	43
+Baby tableware	35
+Disposable cups	31
+Football	23
+Knives	22
+Electric Hot pot	19
+Sour Plum Soup	16
+Cooking wine	16
+Biscuits	11
+Ginger Tea	8
+Juicer	6
+Adult milk powder	2

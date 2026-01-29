@@ -1,0 +1,27 @@
+t1
+classes_present	58
+added_from_prev	58
+added_classes	Adult Diapers, Adult hat, Adult milk powder, Adult shoes, Adult socks, Air conditioner, Air conditioning fan, Baby Furniture, Baby Toys, Baby carriage, Baby crib, Baby diapers, Baby handkerchiefs, Baby milk powder, Baby slippers, Baby tableware, Baby washing and nursing supplie, Badminton, Band aid, Basin, Basketball, Bath lotion, Bedding set, Biscuits, Bowl, Cake, Can, Carbonated drinks, Care Kit, Chewing gum, Children Socks, Children Toys, Children hats, Children shoes, Children underwear, Chopsticks, Cooking wine, Dinner plate, Disposable cups, Electric fan, Football, Forks, Ginger Tea, Guozhen, Men underwear, Mug, Oats, Pie, Pot shovel, Razor, Rubber ball, Soup ladle, Sour Plum Soup, Soy sauce, Stool, Storage box, Toothbrush, Trash
+removed_from_prev	0
+
+t2
+classes_present	57
+added_from_prev	35
+added_classes	Chocolates, Chopping block, Coat hanger, Cocktail, Coffee, Comb, Cotton swab, Cutter, Dairy, Desk lamp, Disposable bag, Draw bar box, Dried beans, Dried fish, Dried meat, Electric Hot pot, Electric frying pan, Electric iron, Electric kettle, Electric steaming pan, Electromagnetic furnace, Emulsion, Facial Cleanser, Facial mask, Fish tofu, Flour, Food box, Fresh-keeping film, Herbal tea, Hot strips, Knives, Liquor and Spirits, Rice cooker, Spoon, Storage bottle
+removed_from_prev	36
+removed_classes	Adult Diapers, Adult hat, Adult milk powder, Adult shoes, Adult socks, Air conditioning fan, Baby Furniture, Baby Toys, Baby carriage, Baby crib, Baby diapers, Baby handkerchiefs, Baby milk powder, Baby slippers, Baby washing and nursing supplie, Band aid, Bath lotion, Bedding set, Biscuits, Cake, Carbonated drinks, Care Kit, Chewing gum, Children Socks, Children Toys, Children hats, Children shoes, Children underwear, Ginger Tea, Guozhen, Men underwear, Oats, Pie, Sour Plum Soup, Stool, Toothbrush
+
+t3
+classes_present	64
+added_from_prev	43
+added_classes	Adult milk powder, Adult socks, Biscuits, Cake, Ginger Tea, Guozhen, Hair conditioner, Hair drier, Hair dye, Hair gel, Ice cream, Instant noodles, Jacket, Juicer, Knapsack, Lingerie, Lotus root flour, Makeup tools, Men underwear, Microwave Oven, Mixed congee, Mouth wash, Noodle, Notebook, Oats, Pasta, Pen, Pencil case, Pie, Potato chips, Quick-frozen Tangyuan, Quick-frozen Wonton, Quick-frozen dumplings, Sauce, Sesame paste, Sour Plum Soup, Soybean Milk machine, Sports cup, Tea, Toothbrush, Toothpaste, Trousers, Walnut powder
+removed_from_prev	36
+removed_classes	Air conditioner, Baby tableware, Badminton, Basketball, Can, Chocolates, Chopping block, Coat hanger, Comb, Cooking wine, Cotton swab, Dairy, Desk lamp, Disposable bag, Draw bar box, Electric Hot pot, Electric fan, Electric frying pan, Electric iron, Electric kettle, Electric steaming pan, Electromagnetic furnace, Emulsion, Facial Cleanser, Facial mask, Flour, Food box, Football, Fresh-keeping film, Razor, Rice cooker, Rubber ball, Soy sauce, Storage bottle, Storage box, Trash
+
+t4
+classes_present	64
+added_from_prev	32
+added_classes	Baby tableware, Basketball, Bath lotion, Can, Cooking wine, Electric Hot pot, Facial Cleanser, Food box, Football, Razor, Red wine, Refrigerator, Rice cooker, Rise, Rubber ball, Shampoo, Skate, Skin care set, Soap, Socket, Soy sauce, Soymilk, Stool, Storage bottle, Storage box, Tampon, Tea beverage, Television, Thermos bottle, Trash, Vinegar, Washing machine
+removed_from_prev	32
+removed_classes	Adult socks, Cake, Cocktail, Coffee, Dried beans, Dried fish, Dried meat, Fish tofu, Hair conditioner, Hair drier, Hair dye, Hair gel, Herbal tea, Hot strips, Ice cream, Instant noodles, Knapsack, Lingerie, Liquor and Spirits, Makeup tools, Men underwear, Microwave Oven, Mixed congee, Noodle, Notebook, Pen, Pencil case, Pie, Potato chips, Quick-frozen Tangyuan, Quick-frozen Wonton, Quick-frozen dumplings
+

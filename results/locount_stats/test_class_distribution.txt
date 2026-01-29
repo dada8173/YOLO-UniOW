@@ -1,0 +1,145 @@
+Test (Locount_GtTxtsTest)
+total_instances	240152
+unique_classes	140
+
+class	count
+Carbonated drinks	19552
+Skin care set	11945
+Toothpaste	11826
+Red wine	10774
+Shampoo	10032
+Hair conditioner	8569
+Instant noodles	8305
+Storage box	7847
+Bowl	6872
+Dinner plate	5900
+Baby washing and nursing supplie	5616
+Liquor and Spirits	5605
+Pen	4793
+Basin	4669
+Coffee	4328
+Toothbrush	4262
+Adult hat	4235
+Fresh-keeping film	4194
+Bath lotion	3919
+Food box	3855
+Soap	3483
+Adult socks	3351
+Soy sauce	3196
+Baby milk powder	3111
+Adult shoes	3090
+Mug	2899
+Jacket	2836
+Disposable cups	2753
+Men underwear	2658
+Bedding set	2419
+Disposable bag	2391
+Dairy	2163
+Trash	2135
+Sports cup	2131
+Facial Cleanser	1997
+Tea beverage	1990
+Storage bottle	1916
+Coat hanger	1781
+Cocktail	1669
+Oats	1645
+Baby tableware	1602
+Chocolates	1530
+Knapsack	1517
+Can	1483
+Chopsticks	1453
+Tea	1246
+Electric frying pan	1233
+Quick-frozen dumplings	1114
+Noodle	1092
+Children shoes	1082
+Biscuits	1040
+Trousers	1024
+Chopping block	997
+Draw bar box	942
+Thermos bottle	915
+Quick-frozen Wonton	893
+Tampon	854
+Cooking wine	837
+Soup ladle	835
+Stool	833
+Vinegar	815
+Sauce	785
+Chewing gum	750
+Rice cooker	746
+Children hats	737
+Baby diapers	656
+Pot shovel	646
+Facial mask	622
+Potato chips	618
+Basketball	614
+Hair dye	588
+Mixed congee	540
+Rubber ball	502
+Pasta	474
+Juicer	448
+Cake	443
+Soymilk	410
+Children Socks	384
+Rise	374
+Flour	347
+Electric kettle	342
+Microwave Oven	330
+Ice cream	325
+Football	317
+Dried meat	308
+Baby Furniture	295
+Notebook	283
+Emulsion	283
+Hot strips	282
+Lingerie	276
+Children Toys	273
+Air conditioner	271
+Sesame paste	267
+Adult Diapers	242
+Electric fan	236
+Care Kit	236
+Electric Hot pot	229
+Soybean Milk machine	222
+Quick-frozen Tangyuan	222
+Adult milk powder	221
+Badminton	213
+Desk lamp	206
+Electromagnetic furnace	204
+Guozhen	196
+Lotus root flour	188
+Herbal tea	183
+Socket	180
+Baby handkerchiefs	165
+Cotton swab	160
+Refrigerator	157
+Pie	152
+Baby slippers	148
+Makeup tools	135
+Spoon	131
+Washing machine	129
+Baby Toys	127
+Hair gel	125
+Pencil case	121
+Dried beans	119
+Walnut powder	112
+Sour Plum Soup	102
+Razor	95
+Skate	69
+Television	69
+Comb	67
+Forks	65
+Ginger Tea	57
+Electric iron	55
+Mouth wash	39
+Baby carriage	36
+Band aid	34
+Cutter	28
+Hair drier	22
+Fish tofu	18
+Electric steaming pan	17
+Air conditioning fan	14
+Knives	9
+Children underwear	8
+Dried fish	3
+Baby crib	1

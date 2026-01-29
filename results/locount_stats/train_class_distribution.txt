@@ -1,0 +1,145 @@
+Train (Locount_GtTxtsTrain)
+total_instances	569507
+unique_classes	140
+
+class	count
+Bowl	44324
+Dinner plate	30720
+Instant noodles	22335
+Pen	21870
+Shampoo	21247
+Facial Cleanser	19864
+Carbonated drinks	16796
+Biscuits	14928
+Basin	14448
+Red wine	14289
+Storage box	13854
+Chocolates	13562
+Skin care set	11975
+Dairy	11909
+Bath lotion	11521
+Liquor and Spirits	11187
+Baby milk powder	10966
+Potato chips	10550
+Chewing gum	9803
+Can	9799
+Mug	9518
+Coffee	9075
+Disposable cups	7963
+Tea beverage	7387
+Disposable bag	7339
+Jacket	6980
+Soup ladle	6931
+Sauce	6870
+Baby washing and nursing supplie	6869
+Baby tableware	6728
+Vinegar	6687
+Chopsticks	6386
+Toothpaste	6273
+Quick-frozen dumplings	5961
+Trousers	5816
+Oats	4815
+Tea	4814
+Facial mask	4655
+Tampon	4429
+Trash	4413
+Bedding set	4339
+Hair dye	4104
+Stool	3853
+Adult shoes	3851
+Sports cup	3620
+Noodle	3522
+Adult socks	3476
+Quick-frozen Tangyuan	3465
+Hair conditioner	3408
+Hair gel	3266
+Baby diapers	2957
+Pasta	2943
+Adult hat	2822
+Herbal tea	2734
+Cooking wine	2592
+Cocktail	2540
+Pot shovel	2184
+Dried meat	2180
+Toothbrush	2135
+Soy sauce	1958
+Pie	1919
+Basketball	1669
+Rise	1545
+Men underwear	1509
+Rice cooker	1500
+Notebook	1493
+Flour	1487
+Razor	1454
+Socket	1401
+Baby handkerchiefs	1329
+Emulsion	1226
+Forks	1214
+Food box	1178
+Ice cream	1165
+Microwave Oven	1146
+Mixed congee	1128
+Guozhen	844
+Football	831
+Badminton	815
+Quick-frozen Wonton	814
+Makeup tools	780
+Adult milk powder	739
+Children Toys	714
+Adult Diapers	672
+Pencil case	647
+Cotton swab	609
+Desk lamp	544
+Baby Furniture	525
+Baby Toys	509
+Lingerie	509
+Electric kettle	493
+Cake	444
+Knapsack	415
+Skate	413
+Storage bottle	403
+Comb	393
+Baby slippers	392
+Cutter	377
+Chopping block	335
+Electromagnetic furnace	310
+Electric frying pan	304
+Electric iron	298
+Juicer	294
+Draw bar box	270
+Children shoes	261
+Sesame paste	254
+Electric fan	225
+Care Kit	223
+Mouth wash	223
+Coat hanger	221
+Lotus root flour	207
+Children hats	202
+Children Socks	196
+Fresh-keeping film	195
+Hot strips	180
+Baby carriage	179
+Electric Hot pot	177
+Hair drier	175
+Children underwear	151
+Washing machine	139
+Band aid	135
+Television	124
+Spoon	124
+Electric steaming pan	123
+Rubber ball	123
+Thermos bottle	107
+Dried beans	87
+Air conditioner	83
+Air conditioning fan	77
+Refrigerator	77
+Fish tofu	71
+Walnut powder	70
+Soymilk	59
+Soybean Milk machine	52
+Soap	43
+Knives	23
+Ginger Tea	21
+Sour Plum Soup	16
+Dried fish	14
+Baby crib	9
