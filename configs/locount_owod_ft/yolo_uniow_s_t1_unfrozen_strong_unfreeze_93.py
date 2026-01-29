@@ -21,7 +21,7 @@ val_interval_stage2 = 5
 text_channels = 512
 neck_embed_channels = [128, 256, _base_.last_stage_out_channels // 2]
 neck_num_heads = [4, 8, _base_.last_stage_out_channels // 2 // 32]
-base_lr = 1e-3
+base_lr = 1e-4
 weight_decay = 0.05
 train_batch_size_per_gpu = 32
 
