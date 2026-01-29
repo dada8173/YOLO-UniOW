@@ -4,10 +4,13 @@ _base_ = [('../../third_party/mmyolo/configs/yolov10/'
 custom_imports = dict(imports=['yolo_world'],
                       allow_failed_imports=False)
 
-# Task 1 Configuration - STRONG UNFROZEN (93% trainable parameters)
-# 強解凍：93% 可訓練參數
-# 適合：充分適應新域，對新數據完全fine-tune
+infer_type = "one2one"
+"""
+LocountOWOD 訓練配置 - 強解凍 93% 版本
+參數區塊、註解、結構與主解凍版一致，僅保留原有學習率、work_dir、frozen_stages、neck.freeze_all、bbox_head.freeze_one2one/one2many 等個別差異
+"""
 
+# 基本設定
 num_classes = _base_.PREV_INTRODUCED_CLS + _base_.CUR_INTRODUCED_CLS + 2
 num_training_classes = _base_.PREV_INTRODUCED_CLS + _base_.CUR_INTRODUCED_CLS + 2
 max_epochs = 10
@@ -18,21 +21,18 @@ val_interval_stage2 = 5
 text_channels = 512
 neck_embed_channels = [128, 256, _base_.last_stage_out_channels // 2]
 neck_num_heads = [4, 8, _base_.last_stage_out_channels // 2 // 32]
-
-# 強解凍使用較高學習率
 base_lr = 1e-3
 weight_decay = 0.05
 train_batch_size_per_gpu = 32
 
-# 輸出文件夾標註解凍程度
 work_dir = 'work_dirs/locount_owod/t1_strong_unfrozen_93percent'
 
 import os
-# 使用指定的權重
-load_from = r'pretrained/yolo_uniow_s_lora_bn_5e-4_100e_8gpus_obj365v1_goldg_train_lvis_minival.pth'
+_load_from = os.getenv('LOAD_FROM', None)
+load_from = _load_from if _load_from else r'pretrained/yolo_uniow_s_lora_bn_5e-4_100e_8gpus_obj365v1_goldg_train_lvis_minival.pth'
 
-# Override dataset to LocountOWOD - Task 1
-_dataset_env = 'LocountOWOD'
+# Override dataset to LocountOWOD
+_dataset_env = os.getenv('DATASET', None)
 if _dataset_env:
     import sys
     sys.modules['__main__']._dataset = _dataset_env
@@ -43,9 +43,9 @@ embedding_mask = ([0] * _base_.PREV_INTRODUCED_CLS +    # previous classes
                   [1]                              +    # unknown class
                   [0])                                  # anchor class
 
+# model settings
 infer_type = "one2one"
 
-# 強解凍配置：所有層都解凍，93% 參數可訓練
 model = dict(
     type='OWODDetector',
     mm_neck=False,
@@ -54,7 +54,7 @@ model = dict(
     num_prev_classes=_base_.PREV_INTRODUCED_CLS,
     num_prompts=num_classes,
     freeze_prompt=False,
-    embedding_path=f'embeddings/uniow-s/{_base_.owod_dataset.lower()}_t{_base_.owod_task}.npy',
+    embedding_path=f'embeddings/uniow-s/{{_base_.owod_dataset.lower()}}_t{{_base_.owod_task}}.npy',
     unknown_embedding_path='embeddings/uniow-s/object.npy',
     anchor_embedding_path='embeddings/uniow-s/object_tuned.npy',
     embedding_mask=embedding_mask,

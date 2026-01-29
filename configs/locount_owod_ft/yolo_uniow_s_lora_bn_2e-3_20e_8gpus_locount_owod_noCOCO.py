@@ -4,7 +4,12 @@ _base_ = [('../../third_party/mmyolo/configs/yolov10/'
 custom_imports = dict(imports=['yolo_world'],
                       allow_failed_imports=False)
 
-# hyper-parameters
+"""
+LocountOWOD 訓練配置 - noCOCO 版本
+參數與主解凍版一致，僅保留原有學習率、work_dir、embedding_path、凍結層級等個別差異
+"""
+
+# 基本設定
 num_classes = _base_.PREV_INTRODUCED_CLS + _base_.CUR_INTRODUCED_CLS + 2
 num_training_classes = _base_.PREV_INTRODUCED_CLS + _base_.CUR_INTRODUCED_CLS + 2
 max_epochs = 20
@@ -22,7 +27,8 @@ train_batch_size_per_gpu = 32
 work_dir = 'work_dirs/locount_owod'
 
 import os
-load_from = r'pretrained/yolo_uniow_s_lora_bn_5e-4_100e_8gpus_obj365v1_goldg_train_lvis_minival.pth'
+_load_from = os.getenv('LOAD_FROM', None)
+load_from = _load_from if _load_from else r'pretrained/yolo_uniow_s_lora_bn_5e-4_100e_8gpus_obj365v1_goldg_train_lvis_minival.pth'
 
 # Override dataset to LocountOWOD
 _dataset_env = os.getenv('DATASET', None)
@@ -58,17 +64,17 @@ model = dict(
         image_model={{_base_.model.backbone}},
         text_model=None,
         with_text_model=False,
-        frozen_stages=4,
+        frozen_stages=4,  # 🔒 完全凍結 Backbone
     ),
     neck=dict(
-        freeze_all=True,
+        freeze_all=True,  # 🔒 完全凍結 Neck
     ),
     bbox_head=dict(type='YOLOv10WorldHead',
                    infer_type=infer_type,
                    head_module=dict(type='YOLOv10WorldHeadModule',
                                     use_bn_head=True,
-                                    freeze_one2one=True,
-                                    freeze_one2many=True,
+                                    freeze_one2one=True,  # 🔒 保留推理精度
+                                    freeze_one2many=True,  # 🔒 凍結訓練分支
                                     embed_dims=text_channels,
                                     num_classes=num_training_classes)),
     train_cfg=dict(one2many_assigner=dict(num_classes=num_training_classes),
@@ -77,7 +83,7 @@ model = dict(
     test_cfg=dict(unknown_nms=dict(iou_threshold=0.99, score_threshold=0.2)),
 )
 
-# dataset settings
+# 其餘 dataset、optim_wrapper、hooks 等與主解凍版一致
 owod_train_dataset = dict(
     _delete_=True,
     type='MultiModalOWDataset',

@@ -1,80 +1,85 @@
 _base_ = [('../../third_party/mmyolo/configs/yolov10/'
           'yolov10_s_syncbn_fast_8xb16-500e_coco.py'),
-          '../datasets/owod_dataset.py']
-custom_imports = dict(imports=['yolo_world'],
-                      allow_failed_imports=False)
+        """
+        LocountOWOD 訓練配置 - 2e-3_20e_8gpus 版本
+        參數與主解凍版一致，僅保留原有學習率、work_dir、embedding_path、凍結層級等個別差異
+        """
 
-# hyper-parameters
-num_classes = _base_.PREV_INTRODUCED_CLS + _base_.CUR_INTRODUCED_CLS + 2
-num_training_classes = _base_.PREV_INTRODUCED_CLS + _base_.CUR_INTRODUCED_CLS + 2
-max_epochs = 20
-close_mosaic_epochs = max_epochs
-save_epoch_intervals = 5
-val_interval = 5
-val_interval_stage2 = 5
-text_channels = 512
-neck_embed_channels = [128, 256, _base_.last_stage_out_channels // 2]
-neck_num_heads = [4, 8, _base_.last_stage_out_channels // 2 // 32]
-base_lr = 1e-3
-weight_decay = 0.025
-train_batch_size_per_gpu = 32
+        # 基本設定
+        num_classes = _base_.PREV_INTRODUCED_CLS + _base_.CUR_INTRODUCED_CLS + 2
+        num_training_classes = _base_.PREV_INTRODUCED_CLS + _base_.CUR_INTRODUCED_CLS + 2
+        max_epochs = 20
+        close_mosaic_epochs = max_epochs
+        save_epoch_intervals = 5
+        val_interval = 5
+        val_interval_stage2 = 5
+        text_channels = 512
+        neck_embed_channels = [128, 256, _base_.last_stage_out_channels // 2]
+        neck_num_heads = [4, 8, _base_.last_stage_out_channels // 2 // 32]
+        base_lr = 1e-3
+        weight_decay = 0.025
+        train_batch_size_per_gpu = 32
 
-work_dir = 'work_dirs/locount_owod'
+        work_dir = 'work_dirs/locount_owod'
 
-import os
-_load_from = os.getenv('LOAD_FROM', None)
-load_from = _load_from if _load_from else r'pretrained/yolo_uniow_s_lora_bn_5e-4_100e_8gpus_obj365v1_goldg_train_lvis_minival.pth'
+        import os
+        _load_from = os.getenv('LOAD_FROM', None)
+        load_from = _load_from if _load_from else r'pretrained/yolo_uniow_s_lora_bn_5e-4_100e_8gpus_obj365v1_goldg_train_lvis_minival.pth'
 
-# Override dataset to LocountOWOD
-_dataset_env = os.getenv('DATASET', None)
-if _dataset_env:
-    import sys
-    sys.modules['__main__']._dataset = _dataset_env
+        # Override dataset to LocountOWOD
+        _dataset_env = os.getenv('DATASET', None)
+        if _dataset_env:
+            import sys
+            sys.modules['__main__']._dataset = _dataset_env
 
-# trainable (1), frozen (0)
-embedding_mask = ([0] * _base_.PREV_INTRODUCED_CLS +    # previous classes
-                  [1] * _base_.CUR_INTRODUCED_CLS  +    # current class
-                  [1]                              +    # unknown class
-                  [0])                                  # anchor class
+        # trainable (1), frozen (0)
+        embedding_mask = ([0] * _base_.PREV_INTRODUCED_CLS +    # previous classes
+                          [1] * _base_.CUR_INTRODUCED_CLS  +    # current class
+                          [1]                              +    # unknown class
+                          [0])                                  # anchor class
 
-# model settings
-infer_type = "one2one"
+        # model settings
+        infer_type = "one2one"
 
-model = dict(
-    type='OWODDetector',
-    mm_neck=False,
-    num_train_classes=num_training_classes,
-    num_test_classes=num_classes,
-    num_prev_classes=_base_.PREV_INTRODUCED_CLS,
-    num_prompts=num_classes,
-    freeze_prompt=False,
-    embedding_path=f'embeddings/uniow-s/{_base_.owod_dataset.lower()}_t{_base_.owod_task}.npy',
-    unknown_embedding_path='embeddings/uniow-s/object.npy',
-    anchor_embedding_path='embeddings/uniow-s/object_tuned.npy',
-    embedding_mask=embedding_mask,
-    data_preprocessor=dict(type='YOLOv5DetDataPreprocessor'),
-    backbone=dict(
-        _delete_=True,
-        type='MultiModalYOLOBackbone',
-        image_model={{_base_.model.backbone}},
-        text_model=None,
-        with_text_model=False,
-        frozen_stages=4,
-    ),
-    neck=dict(
-        freeze_all=True,
-    ),
-    bbox_head=dict(type='YOLOv10WorldHead',
-                   infer_type=infer_type,
-                   head_module=dict(type='YOLOv10WorldHeadModule',
-                                    use_bn_head=True,
-                                    freeze_one2one=True,
-                                    freeze_one2many=True,
-                                    embed_dims=text_channels,
-                                    num_classes=num_training_classes)),
-    train_cfg=dict(one2many_assigner=dict(num_classes=num_training_classes),
-                   one2one_assigner=dict(num_classes=num_training_classes),
-                   anchor_label=dict(iou_threshold=0.5, score_threshold=0.01)),
+        model = dict(
+            type='OWODDetector',
+            mm_neck=False,
+            num_train_classes=num_training_classes,
+            num_test_classes=num_classes,
+            num_prev_classes=_base_.PREV_INTRODUCED_CLS,
+            num_prompts=num_classes,
+            freeze_prompt=False,
+            embedding_path=f'embeddings/uniow-s/{{_base_.owod_dataset.lower()}}_t{{_base_.owod_task}}.npy',
+            unknown_embedding_path='embeddings/uniow-s/object.npy',
+            anchor_embedding_path='embeddings/uniow-s/object_tuned.npy',
+            embedding_mask=embedding_mask,
+            data_preprocessor=dict(type='YOLOv5DetDataPreprocessor'),
+            backbone=dict(
+                _delete_=True,
+                type='MultiModalYOLOBackbone',
+                image_model={{_base_.model.backbone}},
+                text_model=None,
+                with_text_model=False,
+                frozen_stages=4,  # 🔒 完全凍結 Backbone
+            ),
+            neck=dict(
+                freeze_all=True,  # 🔒 完全凍結 Neck
+            ),
+            bbox_head=dict(type='YOLOv10WorldHead',
+                           infer_type=infer_type,
+                           head_module=dict(type='YOLOv10WorldHeadModule',
+                                            use_bn_head=True,
+                                            freeze_one2one=True,  # 🔒 保留推理精度
+                                            freeze_one2many=True,  # 🔒 凍結訓練分支
+                                            embed_dims=text_channels,
+                                            num_classes=num_training_classes)),
+            train_cfg=dict(one2many_assigner=dict(num_classes=num_training_classes),
+                           one2one_assigner=dict(num_classes=num_training_classes),
+                           anchor_label=dict(iou_threshold=0.5, score_threshold=0.01)),
+            test_cfg=dict(unknown_nms=dict(iou_threshold=0.99, score_threshold=0.2)),
+        )
+
+        # 其餘 dataset、optim_wrapper、hooks 等與主解凍版一致
     test_cfg=dict(unknown_nms=dict(iou_threshold=0.99, score_threshold=0.2)),
 )
 
