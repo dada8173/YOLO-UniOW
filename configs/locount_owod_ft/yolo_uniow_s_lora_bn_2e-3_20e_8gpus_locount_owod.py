@@ -23,7 +23,7 @@ work_dir = 'work_dirs/locount_owod'
 
 import os
 _load_from = os.getenv('LOAD_FROM', None)
-load_from = _load_from if _load_from else r'C:\Users\opdad\YOLO-UniOW\best_owod_Both_epoch_20.pth'
+load_from = _load_from if _load_from else r'pretrained/yolo_uniow_s_lora_bn_5e-4_100e_8gpus_obj365v1_goldg_train_lvis_minival.pth'
 
 # Override dataset to LocountOWOD
 _dataset_env = os.getenv('DATASET', None)

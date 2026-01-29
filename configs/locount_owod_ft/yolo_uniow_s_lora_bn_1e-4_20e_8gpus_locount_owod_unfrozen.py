@@ -8,7 +8,7 @@
 #   - 學習率: 5e-5 (保守修復，防止梯度爆炸)
 #   - 權重衰減: 0.01 (減半，增加適應性)
 #   - 梯度裁剪: max_norm=1.0 (強力穩定訓練)
-#   - 預訓練模型: best_owod_Both_epoch_20.pth
+#   - 預訓練模型: pretrained/yolo_uniow_s_lora_bn_5e-4_100e_8gpus_obj365v1_goldg_train_lvis_minival.pth
 # ============================================================
 
 _base_ = [('../../third_party/mmyolo/configs/yolov10/'
@@ -38,7 +38,7 @@ work_dir = 'work_dirs/locount_owod'
 
 import os
 _load_from = os.getenv('LOAD_FROM', None)
-load_from = _load_from if _load_from else r'best_owod_Both_epoch_20.pth'
+load_from = _load_from if _load_from else r'pretrained/yolo_uniow_s_lora_bn_5e-4_100e_8gpus_obj365v1_goldg_train_lvis_minival.pth'
 
 # Override dataset to LocountOWOD
 _dataset_env = os.getenv('DATASET', None)

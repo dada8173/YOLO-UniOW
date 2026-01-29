@@ -22,7 +22,7 @@ train_batch_size_per_gpu = 32
 work_dir = 'work_dirs/locount_owod'
 
 import os
-load_from = r'pretrained\yolo_uniow_s_lora_bn_5e-4_100e_8gpus_obj365v1_goldg_train_lvis_minival.pth'
+load_from = r'pretrained/yolo_uniow_s_lora_bn_5e-4_100e_8gpus_obj365v1_goldg_train_lvis_minival.pth'
 
 # Override dataset to LocountOWOD
 _dataset_env = os.getenv('DATASET', None)

@@ -29,7 +29,7 @@ work_dir = 'work_dirs/locount_owod/t1_weak_unfrozen_7percent'
 
 import os
 # 使用指定的權重
-load_from = r'C:\\Users\\dachen\\YOLO-UniOW\\best_owod_Both_epoch_20.pth'
+load_from = r'pretrained/yolo_uniow_s_lora_bn_5e-4_100e_8gpus_obj365v1_goldg_train_lvis_minival.pth'
 
 # Override dataset to LocountOWOD - Task 1
 _dataset_env = 'LocountOWOD'
